@@ -1,0 +1,15 @@
+{
+  "score": 100,
+  "strict_mode": true,
+  "issues": [],
+  "warnings": [],
+  "metrics": {
+    "content_sufficiency_score": 8,
+    "shape_count": 263,
+    "text_shapes": 64,
+    "long_text_shapes": 0,
+    "out_of_bounds_shapes": 0,
+    "text_overlap_pairs": 0,
+    "slide_count": 4
+  }
+}

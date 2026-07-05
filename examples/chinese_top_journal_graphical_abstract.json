@@ -1,0 +1,188 @@
+{
+  "title": "智能模型驱动材料性能预测与机制验证",
+  "subtitle": "中文顶级期刊风格：可编辑矢量图形摘要示例",
+  "language": "zh-CN",
+  "journal_profile": "chinese_top_journal",
+  "palette_name": "chinese_science_blue",
+  "layout_pattern": "multiscale_stack",
+  "abstract_content": {
+    "main_process": "围绕材料数据、智能模型、物理约束、性能验证和工程应用构建图形摘要，展示从数据输入到机制约束再到性能预测的完整路径。",
+    "visual_objects": [
+      "材料微结构",
+      "神经网络",
+      "机制约束",
+      "性能验证",
+      "应用场景"
+    ],
+    "method_or_model": "物理约束智能预测模型",
+    "mechanism": "利用物理约束提高预测结果的可解释性和稳定性。",
+    "key_result": "性能预测和机制验证仅以用户提供的验证结果为依据。",
+    "application": "材料筛选、工艺优化和性能评估。",
+    "source_figures_to_redraw": [
+      "模型流程图",
+      "材料微结构示意图",
+      "性能对比图"
+    ],
+    "forbidden_content": [
+      "未经验证的提升幅度",
+      "未提供的材料机制",
+      "夸张宣传性表述"
+    ]
+  },
+  "central_claim": "物理约束支撑智能预测结果的可解释验证",
+  "prompt_confirmation": {
+    "decision": "accepted_all",
+    "accepted_items": [
+      "中文顶刊表述",
+      "矢量重绘",
+      "质量门控"
+    ],
+    "user_confirmed": true
+  },
+  "blocks": [
+    {
+      "id": "sample",
+      "type": "sample",
+      "label": "材料数据",
+      "label_secondary": "Material data",
+      "bullets": [
+        "结构特征",
+        "实验/仿真"
+      ],
+      "objects": [
+        {
+          "type": "material_microstructure",
+          "x": 0.3,
+          "y": 0.15,
+          "w": 0.4,
+          "h": 0.5
+        }
+      ],
+      "claim_source": "用户概要"
+    },
+    {
+      "id": "model",
+      "type": "model",
+      "label": "智能模型",
+      "label_secondary": "AI model",
+      "bullets": [
+        "特征学习",
+        "性能预测"
+      ],
+      "objects": [
+        {
+          "type": "neural_network",
+          "x": 0.24,
+          "y": 0.13,
+          "w": 0.52,
+          "h": 0.5,
+          "layers": [
+            3,
+            4,
+            3
+          ]
+        }
+      ],
+      "claim_source": "用户概要"
+    },
+    {
+      "id": "mechanism",
+      "type": "mechanism",
+      "label": "物理约束",
+      "label_secondary": "Physics",
+      "bullets": [
+        "机制一致",
+        "结果可解释"
+      ],
+      "objects": [
+        {
+          "type": "mechanism_loop",
+          "x": 0.34,
+          "y": 0.12,
+          "w": 0.32,
+          "h": 0.5
+        }
+      ],
+      "claim_source": "用户概要"
+    },
+    {
+      "id": "validation",
+      "type": "validation",
+      "label": "结果验证",
+      "label_secondary": "Validation",
+      "bullets": [
+        "对比分析",
+        "误差评估"
+      ],
+      "objects": [
+        {
+          "type": "performance_chart",
+          "x": 0.28,
+          "y": 0.12,
+          "w": 0.44,
+          "h": 0.52
+        }
+      ],
+      "claim_source": "用户概要"
+    },
+    {
+      "id": "application",
+      "type": "application",
+      "label": "工程应用",
+      "label_secondary": "Application",
+      "bullets": [
+        "材料筛选",
+        "工艺优化"
+      ],
+      "objects": [
+        {
+          "type": "rare_earth_magnet",
+          "x": 0.25,
+          "y": 0.12,
+          "w": 0.5,
+          "h": 0.5
+        }
+      ],
+      "claim_source": "用户概要"
+    }
+  ],
+  "connectors": [
+    {
+      "from": "sample",
+      "to": "model",
+      "label": "建模"
+    },
+    {
+      "from": "model",
+      "to": "mechanism",
+      "label": "约束"
+    },
+    {
+      "from": "mechanism",
+      "to": "validation",
+      "label": "验证"
+    },
+    {
+      "from": "validation",
+      "to": "application",
+      "label": "应用"
+    }
+  ],
+  "output_options": {
+    "include_notes_slide": true,
+    "include_quality_slide": true,
+    "write_quality_report": true,
+    "include_palette_slide": true
+  },
+  "strict_mode": true,
+  "objects": [
+    {
+      "type": "multiscale_bridge",
+      "x": 0.72,
+      "y": 0.13,
+      "w": 0.18,
+      "h": 0.1,
+      "label": "多尺度"
+    }
+  ]
+}
