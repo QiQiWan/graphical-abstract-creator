@@ -1,22 +1,17 @@
+[中文](README.md) | [English](README.en.md) | [Español](README.es.md) | [Français](README.fr.md) | [日本語](README.ja.md) | [한국어](README.ko.md) | [Português](README.pt.md) | [العربية](README.ar.md) | [繁體中文](README.zh-TW.md)
+
 # 圖形摘要建立器
 
-建立可編輯向量 PowerPoint 圖形摘要。最低輸入要求：說明圖形摘要大致要展示什麼。流程不再詢問目標期刊、期刊族、學科方向或研究對象。
+圖形摘要建立器用於產生可編輯向量 PowerPoint 圖形摘要，適用於英文論文、中文頂級期刊與中英雙語視覺摘要。主要輸出格式為 `.pptx`，可見文字使用 PowerPoint 可編輯文字框，視覺元素優先使用 PowerPoint 原生向量圖元。
 
-## Core workflow
+## 最低輸入
 
-1. Provide a detailed graphical abstract content brief.
-2. Choose output language and journal profile.
-3. Confirm or edit the suggested claim, layout, palette, vector redraw strategy, and unsupported-content exclusions.
-4. Generate the PPTX.
-5. Run spec check, editability validation, and quality audit.
+開始生成前，需要提供圖形摘要大致要展示的內容。內容越詳細，結果越穩定。建議包含主要流程、視覺物件、方法或模型、機制關係、關鍵結果、應用場景，以及需要向量重繪的來源圖。
 
-## Strict guarantees
+## 核心流程
 
-- Editable PowerPoint text.
-- Native PowerPoint vector shapes.
-- No raster images, screenshots, embedded media, OLE objects, or external linked artwork.
-- Chinese top-journal and bilingual modes are supported.
-
-See `docs/` for installation, usage examples, API spec, and quality gates.
-
-Palette strip preview / 配色彩条预览: `examples/palette_strips.pptx`.
+1. 輸入圖形摘要內容概要。
+2. 選擇語言、期刊風格、來源圖處理方式和輸出內容。
+3. 確認核心論斷、版式方案、向量重繪策略、配色方案和品質檢查項。
+4. 生成可編輯向量 PPTX。
+5. 執行規範檢查、可編輯性驗證和品質審查。

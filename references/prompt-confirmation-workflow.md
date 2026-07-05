@@ -2,7 +2,7 @@
 
 ## Trigger
 
-Use this workflow before final PPTX generation when the user requests strict top-journal quality, CyberPPT-like refinement, Chinese top-journal style, bilingual output, or when the source brief is ambiguous.
+Use this workflow before final PPTX generation when the user requests strict top-journal quality, strict publication refinement, Chinese top-journal style, bilingual output, or when the source brief is ambiguous.
 
 ## Confirmation card
 

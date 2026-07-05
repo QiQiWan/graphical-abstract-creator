@@ -10,9 +10,9 @@ Use this compact intake only when equivalent information is not already availabl
 4. **Source-figure policy**: conceptual reference only / redraw uploaded figures as editable vector elements / no source figures.
 5. **Output package**: PPTX only / PPTX + JSON spec / PPTX + notes / PPTX + quality report / PPTX + palette strip preview.
 
-## Do not ask
+## Intake scope
 
-Do not ask for the target journal, journal family, discipline, or research object as separate intake questions.
+Ask only the required fields above. Infer remaining domain context from the content brief and uploaded materials.
 
 ## Optional defaults to infer and confirm
 

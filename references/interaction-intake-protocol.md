@@ -14,7 +14,7 @@ When the user starts a graphical abstract task and equivalent information is not
 4. Source-figure policy: conceptual reference only, redraw as editable vector elements, or no source figures.
 5. Output package: PPTX only, PPTX + JSON spec, PPTX + notes, PPTX + quality report, or PPTX + palette strip preview.
 
-Do not ask for target journal, journal family, discipline, or research object.
+Ask only these five fields in the first intake block. Infer remaining domain context from the content brief and uploaded materials.
 
 ## Layered intake logic
 
@@ -65,7 +65,7 @@ Generation enhancement plan
 7. Unsupported-content exclusion: ...
 8. Quality gates: Q0-Q8
 
-Choose: A accept all / B modify selected items / C conservative draft / D JSON spec first / E show palette strips first
+Choose: A accept all / B edit selected items / C conservative draft / D JSON spec first / E show palette strips first
 ```
 
 ## Palette selection interaction

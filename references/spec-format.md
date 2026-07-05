@@ -93,7 +93,7 @@ Use connectors for logical flow only. Avoid decorative spaghetti lines.
 ```json
 {
   "prompt_confirmation": {
-    "decision": "accepted_all | modified | skipped | json_first",
+    "decision": "accepted_all | edited_selected | skipped | json_first",
     "accepted_items": ["claim", "layout", "palette", "vector_redraw"],
     "user_confirmed": true
   }

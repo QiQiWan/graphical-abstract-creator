@@ -169,7 +169,7 @@ def main(argv=None):
 
     pconf = spec.get("prompt_confirmation") or {}
     if not pconf:
-        warnings.append("prompt_confirmation is absent. Strict top-journal generation should record whether prompt enhancements were accepted, modified, or skipped.")
+        warnings.append("prompt_confirmation is absent. Strict top-journal generation should record whether prompt enhancements were accepted, edited, or skipped.")
     if strict and pconf and not pconf.get("decision"):
         issues.append("Strict mode requires prompt_confirmation.decision.")
 

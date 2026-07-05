@@ -1,6 +1,6 @@
 ---
 name: graphical-abstract-creator
-description: create, revise, audit, and validate editable vector PowerPoint graphical abstracts for manuscript visual summaries. Use for graphical abstracts, visual abstracts, paper summary figures, editable scientific PPTX schematics, Chinese top-journal graphical abstracts, bilingual English-Chinese graphical abstracts, CyberPPT-grade style intake, prompt-confirmation planning, native PowerPoint vector icon construction, structured abstract-content intake, palette-strip preview, and publication-grade quality gates.
+description: create, revise, audit, and validate editable vector PowerPoint graphical abstracts for manuscript visual summaries. Use for graphical abstracts, visual abstracts, paper summary figures, editable scientific PPTX schematics, Chinese top-journal graphical abstracts, bilingual English-Chinese graphical abstracts, publication-grade style intake, prompt-confirmation planning, native PowerPoint vector icon construction, structured abstract-content intake, palette-strip preview, and publication-grade quality gates.
 ---
 
 # Graphical Abstract Creator
@@ -38,7 +38,7 @@ Require only these minimum inputs before drafting or generating the PPTX:
 4. Source-figure policy: conceptual reference only, redraw as editable vector elements, or no source figures.
 5. Output package: PPTX only, PPTX + JSON spec, PPTX + notes, PPTX + quality report, or PPTX + palette strip preview.
 
-Do not ask for target journal, journal family, discipline, or research object as intake questions. Infer necessary domain context from the content brief and uploaded materials only.
+Ask only the minimum intake fields listed above. Infer remaining domain context from the content brief and uploaded materials.
 
 ### Layered intake and defaulting
 
@@ -57,7 +57,7 @@ Do not ask for target journal, journal family, discipline, or research object as
    - Score content sufficiency using `scripts/check_graphical_abstract_spec.py`.
 
 2. **Extract one visual story.**
-   - Identify research object, problem, gap, method, mechanism, key result, and implication only when supported by the brief or uploaded material.
+   - Identify the problem, gap, method, mechanism, key result, and implication only when supported by the brief or uploaded material.
    - Reduce the story to one central visual claim.
    - Rank source reliability: manuscript figures and methods > abstract/results > user notes > clearly marked assumptions.
 
