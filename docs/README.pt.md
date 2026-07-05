@@ -1,6 +1,12 @@
+[中文](README.zh-CN.md) | [English](README.en.md) | [Español](README.es.md) | [Français](README.fr.md) | [日本語](README.ja.md) | [한국어](README.ko.md) | [Português](README.pt.md) | [العربية](README.ar.md) | [繁體中文](README.zh-TW.md)
+
 # Criador de resumo gráfico
 
-Cria resumos gráficos vetoriais editáveis em PowerPoint. Entrada mínima: descrever o que o resumo deve mostrar.
+Graphical Abstract Creator é uma obra do EatRice Lab. Cria resumos gráficos vetoriais editáveis em PowerPoint. Entrada mínima: descrever o que o resumo deve mostrar.
+
+## Instalar no Codex
+
+Prepare `skill.zip`, abra a gestão de Skills no Codex ou ChatGPT, carregue o arquivo e ative `graphical-abstract-creator`. Para atualizar, carregue o novo `skill.zip` e substitua a versão anterior.
 
 ## Core workflow
 
@@ -17,6 +23,4 @@ Cria resumos gráficos vetoriais editáveis em PowerPoint. Entrada mínima: desc
 - No raster images, screenshots, embedded media, OLE objects, or external linked artwork.
 - Chinese top-journal and bilingual modes are supported.
 
-See `docs/` for installation, usage examples, API spec, and quality gates.
-
-Palette strip preview / 配色彩条预览: `examples/palette_strips.pptx`.
+Palette strip preview / 配色彩条预览: `../examples/palette_strips.pptx`.

@@ -1,5 +1,8 @@
 # Release Profile
 
+Graphical Abstract Creator is an EatRice Lab work.
+
+
 ## Current capability set
 
 - Graphical abstract creation in editable PowerPoint format.

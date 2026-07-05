@@ -1,5 +1,8 @@
 # Manifest
 
+Graphical Abstract Creator is an EatRice Lab work.
+
+
 - `SKILL.md`: main skill instructions.
 - `references/`: working standards for interaction, layout, palettes, vector icons, Chinese journal style, prompt confirmation, and quality review.
 - `scripts/check_graphical_abstract_spec.py`: JSON spec, strict-mode, and content sufficiency checker.

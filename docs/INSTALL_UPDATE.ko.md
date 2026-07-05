@@ -1,19 +1,11 @@
-# 그래픽 초록 생성기 - Install and update
+# Graphical Abstract Creator - 설치 및 업데이트
 
-## Install
+Graphical Abstract Creator는 EatRice Lab 작품입니다. 패키지 이름은 `graphical-abstract-creator`입니다.
 
-Upload `skill.zip` to the ChatGPT Skills interface. The package name is `graphical-abstract-creator`.
+## Codex에 설치
 
-## Update
+`skill.zip`을 준비하고 Codex 또는 ChatGPT의 Skills 관리 화면에서 업로드한 뒤 `graphical-abstract-creator`를 확인하고 활성화합니다. 사용할 때는 Codex 대화에 그래픽 초록의 내용 개요를 입력합니다.
 
-Replace the existing skill with the new `skill.zip`. Keep only one active version to avoid conflicting instructions.
+## 업데이트
 
-## Smoke test
-
-Run:
-
-```bash
-python tests/run_smoke_tests.py
-```
-
-The test checks example specs, builds PPTX files, validates editability, and runs the quality audit.
+새 `skill.zip`을 업로드하여 이전 버전을 교체합니다. 활성 버전은 하나만 유지하는 것이 좋습니다.

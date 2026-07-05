@@ -1,19 +1,11 @@
-# グラフィカルアブストラクト作成ツール - Install and update
+# Graphical Abstract Creator - インストールと更新
 
-## Install
+Graphical Abstract Creator は EatRice Lab の作品です。パッケージ名は `graphical-abstract-creator` です。
 
-Upload `skill.zip` to the ChatGPT Skills interface. The package name is `graphical-abstract-creator`.
+## Codex へのインストール
 
-## Update
+`skill.zip` を用意し、Codex または ChatGPT の Skills 管理画面でアップロードし、`graphical-abstract-creator` を確認して有効化します。使用時は、Codex の会話で図形要旨の内容概要を入力します。
 
-Replace the existing skill with the new `skill.zip`. Keep only one active version to avoid conflicting instructions.
+## 更新
 
-## Smoke test
-
-Run:
-
-```bash
-python tests/run_smoke_tests.py
-```
-
-The test checks example specs, builds PPTX files, validates editability, and runs the quality audit.
+新しい `skill.zip` をアップロードして旧版を置き換えます。有効なバージョンは 1 つにしてください。

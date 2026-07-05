@@ -1,19 +1,11 @@
-# Creador de resúmenes gráficos - Install and update
+# Graphical Abstract Creator - Instalación y actualización
 
-## Install
+Graphical Abstract Creator es una obra de EatRice Lab. El paquete se llama `graphical-abstract-creator`.
 
-Upload `skill.zip` to the ChatGPT Skills interface. The package name is `graphical-abstract-creator`.
+## Instalar en Codex
 
-## Update
+Prepare `skill.zip`, abra la gestión de Skills en Codex o ChatGPT, cargue el archivo, confirme `graphical-abstract-creator` y active el skill. Para usarlo, inicie una conversación en Codex con un resumen de contenido para el abstract gráfico.
 
-Replace the existing skill with the new `skill.zip`. Keep only one active version to avoid conflicting instructions.
+## Actualización
 
-## Smoke test
-
-Run:
-
-```bash
-python tests/run_smoke_tests.py
-```
-
-The test checks example specs, builds PPTX files, validates editability, and runs the quality audit.
+Cargue el nuevo `skill.zip` y sustituya la versión anterior. Mantenga solo una versión activa.

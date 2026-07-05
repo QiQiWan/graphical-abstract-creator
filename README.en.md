@@ -2,7 +2,16 @@
 
 # Graphical Abstract Creator
 
-Graphical Abstract Creator produces editable vector PowerPoint graphical abstracts for English manuscripts, Chinese top-journal submissions, and bilingual English-Chinese visual summaries. The primary output is `.pptx`. Visible text is editable PowerPoint text, and visual elements are built with native PowerPoint vector shapes whenever technically possible.
+Graphical Abstract Creator is an EatRice Lab work for producing editable vector PowerPoint graphical abstracts for English manuscripts, Chinese top-journal submissions, and bilingual English-Chinese visual summaries. The primary output is `.pptx`. Visible text is editable PowerPoint text, and visual elements are built with native PowerPoint vector shapes whenever technically possible.
+
+## Install in Codex
+
+1. Prepare the packaged `skill.zip`.
+2. Open a Codex or ChatGPT environment that supports Skills, then open Skills, Manage skills, or the equivalent skill-management entry.
+3. Upload or import `skill.zip`.
+4. Confirm the skill name `graphical-abstract-creator` and display name `Graphical Abstract Creator`.
+5. After enabling the skill, start a Codex conversation with a detailed graphical abstract content brief, for example: “Use Graphical Abstract Creator to create an English graphical abstract showing ...”.
+6. To update, upload the new `skill.zip` and replace the old version. Keep only one enabled version to avoid conflicting instructions.
 
 ## Minimum input
 

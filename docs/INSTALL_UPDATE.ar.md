@@ -1,19 +1,11 @@
-# منشئ الملخص الرسومي - Install and update
+# Graphical Abstract Creator - التثبيت والتحديث
 
-## Install
+Graphical Abstract Creator هو عمل من EatRice Lab. اسم الحزمة هو `graphical-abstract-creator`.
 
-Upload `skill.zip` to the ChatGPT Skills interface. The package name is `graphical-abstract-creator`.
+## التثبيت في Codex
 
-## Update
+حضّر `skill.zip`، وافتح إدارة Skills في Codex أو ChatGPT، ثم ارفع الملف، وتحقق من `graphical-abstract-creator`، وفعّل المهارة. للاستخدام، ابدأ محادثة في Codex مع وصف محتوى الملخص الرسومي.
 
-Replace the existing skill with the new `skill.zip`. Keep only one active version to avoid conflicting instructions.
+## التحديث
 
-## Smoke test
-
-Run:
-
-```bash
-python tests/run_smoke_tests.py
-```
-
-The test checks example specs, builds PPTX files, validates editability, and runs the quality audit.
+ارفع ملف `skill.zip` الجديد واستبدل النسخة السابقة. يُفضّل إبقاء نسخة واحدة مفعّلة.

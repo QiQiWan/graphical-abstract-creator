@@ -1,8 +1,17 @@
-[中文](README.md) | [English](../README.en.md) | [Español](../README.es.md) | [Français](../README.fr.md) | [日本語](../README.ja.md) | [한국어](../README.ko.md) | [Português](../README.pt.md) | [العربية](../README.ar.md) | [繁體中文](../README.zh-TW.md)
+[中文](README.zh-CN.md) | [English](README.en.md) | [Español](README.es.md) | [Français](README.fr.md) | [日本語](README.ja.md) | [한국어](README.ko.md) | [Português](README.pt.md) | [العربية](README.ar.md) | [繁體中文](README.zh-TW.md)
 
 # 图形摘要创建器
 
-图形摘要创建器用于生成可编辑矢量 PowerPoint 图形摘要，适用于英文论文图形摘要、中文顶级期刊图形摘要和中英双语图形摘要。输出以 `.pptx` 为核心格式，文本使用 PowerPoint 可编辑文本框，视觉元素优先使用 PowerPoint 原生矢量图元。
+图形摘要创建器是 EatRice Lab 作品，用于生成可编辑矢量 PowerPoint 图形摘要，适用于英文论文图形摘要、中文顶级期刊图形摘要和中英双语图形摘要。输出以 `.pptx` 为核心格式，文本使用 PowerPoint 可编辑文本框，视觉元素优先使用 PowerPoint 原生矢量图元。
+
+## 安装到 Codex
+
+1. 准备本目录打包得到的 `skill.zip`。
+2. 打开支持 Skills 的 Codex 或 ChatGPT 环境，进入 Skills、Manage skills 或对应的技能管理入口。
+3. 选择上传或导入 Skill，并上传 `skill.zip`。
+4. 确认 Skill 名称为 `graphical-abstract-creator`，显示名称为 `Graphical Abstract Creator`。
+5. 启用后，在 Codex 对话中输入图形摘要内容概要，例如“使用 Graphical Abstract Creator 生成一张中文顶刊图形摘要，内容包括……”。
+6. 更新时上传新版 `skill.zip` 并替换旧版本，建议只保留一个启用版本，避免多套说明同时生效。
 
 ## 最低输入
 
@@ -14,7 +23,7 @@
 - 期刊风格：国际顶刊、中文顶级期刊、中英双语投稿、封面式图形摘要。
 - 源图处理：仅作为概念依据、重绘为可编辑矢量图元、无源图。
 - 输出内容：PPTX、JSON 规范、讲解备注、质量报告、配色彩条。
-- 配色方案：可通过 `examples/palette_strips.pptx` 查看全部预设色彩组合。
+- 配色方案：可通过 `../examples/palette_strips.pptx` 查看全部预设色彩组合。
 
 ## 核心流程
 
@@ -36,19 +45,8 @@
 
 ## 主要文件
 
-- `SKILL.md`：Skill 入口说明。
-- `references/`：交互、版式、配色、矢量图元、中文风格和质量规则。
-- `scripts/`：PPTX 生成、规范检查、可编辑性验证、质量审查和配色彩条生成脚本。
-- `examples/`：英文示例、中文顶刊示例和配色彩条示例。
-- `docs/`：安装、使用、API、质量门控和配色说明。
-
-## 其他语言文档
-
-- [English README](../README.en.md)
-- [Español README](../README.es.md)
-- [Français README](../README.fr.md)
-- [日本語 README](../README.ja.md)
-- [한국어 README](../README.ko.md)
-- [Português README](../README.pt.md)
-- [العربية README](../README.ar.md)
-- [繁體中文 README](../README.zh-TW.md)
+- `../SKILL.md`：Skill 入口说明。
+- `../references/`：交互、版式、配色、矢量图元、中文风格和质量规则。
+- `../scripts/`：PPTX 生成、规范检查、可编辑性验证、质量审查和配色彩条生成脚本。
+- `../examples/`：英文示例、中文顶刊示例和配色彩条示例。
+- `./`：安装、使用、API、质量门控和配色说明。
