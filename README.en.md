@@ -2,16 +2,27 @@
 
 # Graphical Abstract Creator
 
-Graphical Abstract Creator is an **EatRice Lab** skill for manuscript graphical abstracts. It reads the content brief, uses a compact style card, builds a complete preview prompt, generates a preview image, audits the preview, reconstructs an editable PPT, and validates preview-PPT consistency.
+Graphical Abstract Creator is an **EatRice Lab** skill for manuscript graphical abstracts. It uses a preview-first workflow and delivers a PowerPoint package.
+
+## Default output mode
+
+The default final output is an **exact-view plus editable-reconstruction PowerPoint package**:
+
+1. **Slide 1: exact-view slide**  
+   Uses the approved preview image as a full-slide visual lock so the PPT looks the same as the preview when opened or exported.
+
+2. **Slide 2: editable reconstruction slide**  
+   Rebuilds the abstract with editable PowerPoint text boxes, shapes, arrows, formulas, metric tables, and legends. Complex local scientific panels may remain raster images when necessary.
+
+3. **Optional Slide 3: edit map**  
+   Explains editable elements, local raster panels, and simplifications.
+
+This package separates visual fidelity and editability so the user does not lose either requirement.
 
 ## Install in Codex
 
-Upload `skill.zip` through the Skills or Manage skills page in a Skills-enabled Codex or ChatGPT environment, enable `graphical-abstract-creator`, and start with a detailed content brief.
+Upload `skill.zip` in a Skills-enabled Codex or ChatGPT environment and enable `graphical-abstract-creator`.
 
-## Compact style card
+## Minimum input
 
-The skill confirms only four grouped settings: language and academic tone, visual structure and complexity, palette and information density, and source handling and output. The user may simply choose default settings.
-
-## Hard review rules
-
-The preview may contain no more than four main modules. It must have a dominant visual core, sufficient visual complexity, mechanism completeness, clear large/small frame hierarchy, a real information-density floor, and restrained academic aesthetics.
+Provide a detailed content brief describing the graphical abstract: object of study, mechanism or workflow, method/model, key results, application endpoint, and source figures or abstract text when available.

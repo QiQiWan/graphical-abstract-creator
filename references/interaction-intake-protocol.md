@@ -1,18 +1,21 @@
 # Interaction Intake Protocol
 
-Use a two-part interaction.
+Use a preview-first, PPT-delivery-oriented interaction.
 
-## Part 1: Content brief
-Ask for one content brief. The user must describe what the graphical abstract should show. Ask for as much detail as possible, including object, mechanism or workflow, method or model, key result, application endpoint, and any source figure or text.
+## Step 1: content brief
+Ask for the graphical-abstract content brief. Require the user to describe what should be shown. Ask for as much detail as possible: study object, process, mechanism, method, result, application endpoint, and source figures or text.
 
-Do not generate a prompt, preview, or PPT without a content brief.
+Do not start generation if the content brief is missing.
 
-## Part 2: Compact style card
-After reading the content, present a compact style card with only four grouped choices:
+## Step 2: compressed style card
+After reading the content, present only four grouped choices:
 
-1. **Language and academic tone**: English / Simplified Chinese / Traditional Chinese / bilingual; international journal / Chinese top-journal / cover-like.
-2. **Visual structure and complexity**: auto / left-to-right / center-core / before-after / multiscale / comparison; maximum four main modules.
-3. **Palette and density**: auto palette or named palette; compact / standard / rich.
-4. **Source handling and output**: concept reference / vector redraw / no source figure; PPTX only or PPTX plus prompt/spec/report.
+1. **Language and tone**: output language and academic tone.
+2. **Structure and complexity**: layout pattern and four-module cap.
+3. **Palette and density**: color scheme and information-density level.
+4. **Source and output**: source-figure handling and final delivery package.
 
-Use defaults for unspecified choices. Do not split these into many separate questions.
+Allow “use defaults”. Avoid long multi-question forms.
+
+## Step 3: delivery rule
+If the user asks to create, generate, export, or deliver the graphical abstract, do not stop after generating the preview image. Continue into editable PPT reconstruction after the preview passes hard gates. Stop after preview only when the user explicitly asks for preview only, requests manual approval, or the preview fails hard gates.

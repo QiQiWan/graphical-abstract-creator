@@ -15,3 +15,11 @@
 - `docs/QUALITY_GATES.zh-CN.md`
 - `docs/QUALITY_GATES.en.md`
 - `scripts/audit_preview_complexity.py`
+
+## Workflow note
+The package uses a PPT-delivery-oriented preview-first workflow. Final requested outputs should include editable PPTX, not only preview images.
+
+- `references/hybrid-reconstruction-standard.md`: hybrid editable PPT reconstruction policy.
+
+- `references/exact-visual-parity-standard.md`: exact-view slide and editable reconstruction package standard.
+- `scripts/audit_visual_parity.py`: render-difference visual-parity audit skeleton.

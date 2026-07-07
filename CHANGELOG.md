@@ -1,3 +1,3 @@
 # Changelog
 
-Current package logic uses a preview-first graphical-abstract workflow with a compact four-field style card, hard preview-review gates, a four-module maximum, visual-complexity requirements, mechanism-completeness checks, information-density lower bounds, and academic-aesthetic constraints.
+Current package strengthens the general visual-parity plus editable-overlay workflow. The default final PPT contains an exact-view slide and an editable overlay slide. The editable slide uses cover-and-replace objects for titles, arrows, frames, formulas, metrics, legends, and key labels, while preserving complex scientific panels as high-quality localized images.

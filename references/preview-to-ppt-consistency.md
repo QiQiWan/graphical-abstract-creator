@@ -1,17 +1,28 @@
 # Preview-to-PPT Consistency Standard
 
-The approved preview image is the visual reference for the PPT reconstruction.
+Use a two-level consistency rule.
 
-The final PPT must preserve:
-- overall composition;
-- no more than four main modules;
-- dominant visual core;
-- large versus small frame hierarchy;
-- relative placement of modules;
-- visual-complexity level;
-- mechanism arrows and transformation cues;
-- color semantics and palette;
-- major labels and key message;
-- information-density profile.
+## Level 1: exact-view consistency
 
-Minor differences are allowed only when required to improve editability or PowerPoint reconstruction. The scientific meaning and visual balance must remain the same.
+The exact-view slide must match the approved preview image when rendered. It is allowed to use the preview image as a full-slide visual-lock layer. Do not add visible overlays that change its appearance.
+
+## Level 2: editable reconstruction consistency
+
+The editable reconstruction slide must preserve:
+- the same four-module structure or fewer;
+- the same module hierarchy;
+- the same dominant core region;
+- the same flow direction and major arrows;
+- the same key labels, formulas, metrics, and legend concepts;
+- the same color semantics;
+- the same scientific meaning.
+
+Minor differences are acceptable only when required for editability.
+
+## Not acceptable
+
+- delivering only a preview image when the user asked for a PPTX;
+- claiming a raster exact-view slide is fully editable;
+- removing the editable reconstruction slide;
+- changing metrics, model names, formulas, or module sequence;
+- exceeding four main modules.
