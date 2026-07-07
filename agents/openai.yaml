@@ -1,5 +1,4 @@
 interface:
   display_name: Graphical Abstract Creator
   short_description: Creates editable vector PowerPoint graphical abstracts for scientific manuscripts.
-  icon: presentation
-  theme_color: "#1D5F8A"
+  theme_color: "#163B6D"

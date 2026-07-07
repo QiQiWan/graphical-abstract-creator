@@ -37,3 +37,25 @@ Use for two-path comparisons, ablation, or baseline-versus-proposed visual stori
 - Use global objects sparingly; they should explain the visual story, not decorate unused space.
 - Use elbow connectors only when straight connectors would cross blocks.
 - Reserve the bottom callout for the central claim.
+
+
+## Publication-shape refinements
+
+Always apply `references/composition-and-compactness.md` after selecting a layout pattern.
+
+- Prefer a large central core plus smaller support frames over equal-size card rows.
+- Keep the main visual story to 3-5 primary modules when possible.
+- Use open grouping zones for related stages and reduce visible borders.
+- Make the model, mechanism, or core contribution 1.3-1.8 times larger than ordinary support frames.
+- Use the bottom strip only for one concise key message; avoid large boxed paragraphs.
+- Remove style tags from the visible canvas.
+
+
+## Density-aware layout selection
+
+Select layout together with information density:
+
+- `compact` + method pipeline: use three-zone flow with one enlarged central model.
+- `standard` + method/result story: use four-zone flow or center-core composition with one result cue.
+- `rich` + multiscale story: use stacked or nested zones; avoid more than six primary modules.
+- If the chosen layout requires too many labels, switch to a layout with stronger visual grouping rather than shrinking fonts.

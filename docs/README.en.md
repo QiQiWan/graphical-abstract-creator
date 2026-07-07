@@ -34,6 +34,10 @@ Before generation, provide a content brief describing what the graphical abstrac
 5. Generate the editable vector PPTX.
 6. Run specification checks, editability validation, and quality audit.
 
+## Information density control
+
+The creator uses publication-level information-density profiles: `compact`, `standard`, or `rich`. It checks semantic information units, visible text volume, module count, connector count, visual object count, and evidence cues. Chinese top-journal and single-column-friendly outputs should normally use `compact`; general international graphical abstracts should use `standard`; multiscale, multiphysics, or multimodal mechanism figures may use `rich`.
+
 ## Output standards
 
 - All visible text is editable PowerPoint text.

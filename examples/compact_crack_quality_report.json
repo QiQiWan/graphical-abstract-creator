@@ -1,0 +1,20 @@
+{
+  "score": 100,
+  "density": {
+    "profile": "compact",
+    "semantic_units": 11.8,
+    "visible_cjk_chars": 71,
+    "visible_english_words": 4,
+    "visual_object_types": [
+      "civil_structure",
+      "crack_defect",
+      "dataset",
+      "neural_network",
+      "performance_chart",
+      "vision_pipeline"
+    ],
+    "evidence_cues": 2
+  },
+  "issues": [],
+  "warnings": []
+}

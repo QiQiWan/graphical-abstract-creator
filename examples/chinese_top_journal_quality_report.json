@@ -1,0 +1,21 @@
+{
+  "score": 100,
+  "density": {
+    "profile": "rich",
+    "semantic_units": 15.6,
+    "visible_cjk_chars": 100,
+    "visible_english_words": 0,
+    "visual_object_types": [
+      "magnetic_domain",
+      "material_microstructure",
+      "multiscale_bridge",
+      "optimization_loop",
+      "performance_chart",
+      "process_stack",
+      "rare_earth_magnet"
+    ],
+    "evidence_cues": 2
+  },
+  "issues": [],
+  "warnings": []
+}

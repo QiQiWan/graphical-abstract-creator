@@ -17,3 +17,26 @@ Q6 PowerPoint technical purity: no media folder, picture objects, OLE objects, a
 Q7 Package completeness: deliver PPTX plus requested spec, notes, and audit report.
 
 Q8 Palette preview: when the user is choosing a style, provide or generate an editable vector palette-strip preview.
+
+
+## Q9 Composition compactness
+
+The figure must pass the publication composition check:
+
+- One dominant core frame is present when the story has a central method, model, mechanism, or result.
+- Support frames are smaller and visually subordinate.
+- The layout does not use five or more equal workflow cards unless justified.
+- Module text is short enough for manuscript-scale viewing.
+- Title band and bottom key-message band are compact.
+- Red or orange is reserved for defects, risks, warnings, or other explicit scientific semantics.
+
+
+## Q10 Information density
+
+Strict graphical abstracts must declare or infer one density profile: `compact`, `standard`, or `rich`. The audit checks semantic information units, visible text budget, connector count, label count, visual object count, and evidence cues.
+
+- Compact: 7-12 semantic units; 45-110 Chinese characters or 22-60 English words.
+- Standard: 9-16 semantic units; 70-170 Chinese characters or 35-95 English words.
+- Rich: 12-20 semantic units; 100-230 Chinese characters or 55-130 English words.
+
+A figure fails publication review when it is visually polished but scientifically empty, or scientifically overloaded but unreadable at manuscript scale.

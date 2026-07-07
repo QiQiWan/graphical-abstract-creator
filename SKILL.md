@@ -1,6 +1,6 @@
 ---
 name: graphical-abstract-creator
-description: create, revise, audit, and validate editable vector PowerPoint graphical abstracts for manuscript visual summaries. Use for graphical abstracts, visual abstracts, paper summary figures, editable scientific PPTX schematics, Chinese top-journal graphical abstracts, bilingual English-Chinese graphical abstracts, publication-grade style intake, prompt-confirmation planning, native PowerPoint vector icon construction, structured abstract-content intake, palette-strip preview, and publication-grade quality gates.
+description: create, revise, audit, and validate editable vector PowerPoint graphical abstracts for manuscript visual summaries. Use for graphical abstracts, visual abstracts, paper summary figures, editable scientific PPTX schematics, Chinese top-journal graphical abstracts, bilingual English-Chinese graphical abstracts, publication-grade style intake, prompt-confirmation planning, native PowerPoint vector icon construction, structured abstract-content intake, palette-strip preview, quality gates, and controlled information-density rules.
 ---
 
 # Graphical Abstract Creator
@@ -50,59 +50,69 @@ Ask only the minimum intake fields listed above. Infer remaining domain context 
 
 ## Default workflow
 
+Apply composition, compactness, and information-density rules from `references/composition-and-compactness.md` and `references/information-density-standard.md` throughout planning, generation, and audit. The default visual result should be a compact publication figure with one dominant core, not a row of equal workflow cards.
+
 1. **Normalize the content brief.**
    - Convert user input into the structured `abstract_content` object in `references/spec-format.md`.
    - Preserve user wording for verified claims.
    - Mark missing details as `unspecified` instead of inventing them.
    - Score content sufficiency using `scripts/check_graphical_abstract_spec.py`.
 
-2. **Extract one visual story.**
+2. **Select an information-density profile.**
+   - Use `references/information-density-standard.md`.
+   - Default to `compact` for Chinese top-journal and single-column-friendly outputs.
+   - Default to `standard` for general international graphical abstracts.
+   - Use `rich` only for multiscale, multiphysics, multimodal, or coupled model-experiment stories.
+   - Estimate semantic information units, visible text budget, connector count, and visual object count before layout.
+   - If the content is under-dense, add verified visual evidence or result cues; if it is over-dense, merge modules and move details to notes.
+
+3. **Extract one visual story.**
    - Identify the problem, gap, method, mechanism, key result, and implication only when supported by the brief or uploaded material.
    - Reduce the story to one central visual claim.
    - Rank source reliability: manuscript figures and methods > abstract/results > user notes > clearly marked assumptions.
 
-3. **Run prompt confirmation when needed.**
+4. **Run prompt confirmation when needed.**
    - Use `references/prompt-confirmation-workflow.md`.
    - Present a fixed confirmation card with claim sharpening, layout, vector redraw, result emphasis, palette, language tone, unsupported-content exclusion, and quality gates.
    - Let the user choose: accept all, edit selected items, skip confirmation, or request JSON first.
 
-4. **Choose a structure.**
-   - Use `references/layout-patterns.md`.
+5. **Choose a structure.**
+   - Use `references/layout-patterns.md` and `references/composition-and-compactness.md`.
    - Prefer left-to-right flow for method pipelines and causal mechanisms.
    - Prefer center-core radial composition for one dominant innovation.
    - Prefer before-after for performance improvement or intervention effects.
    - Prefer multiscale stack for materials, mechanics, manufacturing, biology, geoscience, and AI-for-science topics.
    - Use comparison layout for contrastive methods, ablation, or baseline-versus-proposed visual stories.
 
-5. **Select and preview a palette.**
+6. **Select and preview a palette.**
    - Use `references/palette-presets.md`.
    - Default to `nature_blue` for international English output, `chinese_science_blue` for Chinese top-journal output, and `sci_cjk_bilingual` for bilingual output.
    - Use one palette consistently; do not mix palettes casually.
    - Use no more than four semantic colors on one slide.
    - If color choice matters, provide a palette strip preview. The preview must be editable vector rectangles, not a screenshot.
 
-6. **Apply language-specific scientific style.**
+7. **Apply language-specific scientific style.**
    - Use `references/chinese-top-journal-style.md` for Chinese or bilingual output.
    - For Chinese top-journal outputs, use concise scientific Chinese, avoid marketing adjectives, and keep terms consistent with the manuscript.
    - For bilingual outputs, use one primary language in major labels and the other as smaller secondary labels.
 
-7. **Build editable vector objects.**
+8. **Build editable vector objects.**
    - Use `references/vector-icon-library.md` for the vector object DSL.
    - Represent datasets, AI models, materials, samples, fields, magnetic domains, cracks, FEM meshes, molecules, sensors, civil structures, rare-earth magnets, multiscale mechanisms, optimization loops, and performance charts with native PowerPoint shapes.
    - Redraw user-provided raster figures conceptually as editable vector shapes. Do not embed the source image.
 
-8. **Generate the PPTX.**
+9. **Generate the PPTX.**
    - Create a JSON spec following `references/spec-format.md`.
    - Run `scripts/check_graphical_abstract_spec.py`; use `--strict` for publication-level outputs.
    - Run `scripts/build_graphical_abstract_pptx.py` to create the editable vector PPTX.
    - Use widescreen 16:9 unless the user explicitly requests another aspect ratio.
 
-9. **Audit quality and editability.**
+10. **Audit quality and editability.**
    - Run `scripts/validate_pptx_editability.py`.
    - Run `scripts/audit_graphical_abstract_quality.py` for layout, language, palette, text density, claim provenance, contrast, and vector purity checks.
    - Fix every detected raster image, picture object, embedded media file, external relationship, OLE object, out-of-bounds element, unsupported claim, or density violation before delivery.
 
-10. **Deliver with traceable assumptions.**
+11. **Deliver with traceable assumptions.**
    - Provide the PPTX and any requested JSON spec/report.
    - State which inputs were used, which assumptions were applied, and which elements are editable vector PowerPoint objects.
    - If any request could not be fulfilled as editable vectors, identify the limitation explicitly.
@@ -119,4 +129,6 @@ Use `docs/QUALITY_GATES.en.md` or `docs/QUALITY_GATES.zh-CN.md` as the publicati
 - Q5: palette and contrast consistency;
 - Q6: PowerPoint technical purity;
 - Q7: final package completeness;
-- Q8: palette-strip preview available when color style is being chosen.
+- Q8: palette-strip preview available when color style is being chosen;
+- Q9: composition and compactness meet publication-level frame hierarchy, text density, and title/key-message rules;
+- Q10: information density remains within the selected compact, standard, or rich publication profile.

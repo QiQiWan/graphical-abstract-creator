@@ -1,0 +1,103 @@
+{
+  "title": "裂缝识别图形摘要",
+  "language": "zh-CN",
+  "journal_profile": "chinese_top_journal",
+  "layout_pattern": "data_model_decision",
+  "strict_mode": true,
+  "palette_name": "chinese_science_blue",
+  "abstract_content": {
+    "main_process": "Concrete surface images are converted into pixel-level crack masks through annotation, augmentation, U-Net segmentation, post-processing, quantitative evaluation, and inspection decision support.",
+    "visual_objects": [
+      "surface image tile",
+      "annotation mask",
+      "central U-Net core",
+      "segmentation mask",
+      "IoU/F1 metric tags",
+      "inspection decision arrow"
+    ],
+    "method_or_model": "U-Net segmentation with encoder-decoder and skip connections",
+    "mechanism": "multi-scale feature extraction and spatial detail recovery for thin crack boundaries",
+    "key_result": "editable placeholders for IoU and F1; no invented numeric values",
+    "application": "crack localization, quantification, grading, and maintenance decision support",
+    "source_figures_to_redraw": [
+      "surface image schematic",
+      "mask schematic",
+      "U-Net architecture schematic"
+    ],
+    "forbidden_content": [
+      "unverified accuracy values",
+      "unverified deployment claims"
+    ]
+  },
+  "composition": {
+    "frame_hierarchy": "small input/preparation frame -> large central model frame -> small output/application frame",
+    "core_frame_scale": 1.55,
+    "primary_module_count": 3,
+    "text_density_mode": "compact_labels",
+    "bottom_message_mode": "light_strip",
+    "avoid_visible_style_tags": true
+  },
+  "information_density": {
+    "profile": "compact",
+    "semantic_unit_target": "7-12",
+    "visible_text_budget": {
+      "zh_chars": "45-110",
+      "en_words": "22-60"
+    },
+    "max_labels_per_module": 2,
+    "max_connectors": 4,
+    "min_visual_object_types": 3,
+    "evidence_cue_required": true,
+    "detail_destination": "notes_or_caption"
+  },
+  "blocks": [
+    {
+      "id": "input",
+      "title": "影像与标注",
+      "role": "input",
+      "labels": [
+        "表面影像",
+        "像素级掩膜"
+      ],
+      "objects": [
+        {"type": "dataset"},
+        {"type": "crack_defect"}
+      ],
+      "claim_source": "user brief"
+    },
+    {
+      "id": "model",
+      "title": "U-Net 分割",
+      "role": "method",
+      "labels": [
+        "编码-解码",
+        "跳跃连接"
+      ],
+      "objects": [
+        {"type": "neural_network"},
+        {"type": "vision_pipeline"}
+      ],
+      "emphasis": "core",
+      "claim_source": "user brief"
+    },
+    {
+      "id": "output",
+      "title": "量化与应用",
+      "role": "result",
+      "labels": [
+        "IoU / F1",
+        "巡检决策"
+      ],
+      "objects": [
+        {"type": "performance_chart"},
+        {"type": "civil_structure"}
+      ],
+      "claim_source": "user brief"
+    }
+  ],
+  "connectors": [
+    {"from": "input", "to": "model", "label": "训练", "style": "straight"},
+    {"from": "model", "to": "output", "label": "分割", "style": "straight"}
+  ],
+  "key_message": "裂缝影像经过 U-Net 分割形成像素级掩膜，支撑病害量化与巡检决策。"
+}

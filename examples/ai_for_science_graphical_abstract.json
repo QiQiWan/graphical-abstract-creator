@@ -1,186 +1,46 @@
 {
-  "title": "Physics-guided AI turns multimodal data into reliable scientific decisions",
-  "subtitle": "Editable vector graphical abstract generated from a structured content brief",
+  "title": "Physics-guided neural simulation",
   "language": "en",
   "journal_profile": "international_top_journal",
-  "palette_name": "ai4science_indigo",
   "layout_pattern": "data_model_decision",
+  "strict_mode": true,
+  "palette_name": "ai4science_indigo",
   "abstract_content": {
-    "main_process": "Multimodal experimental or simulation data are curated, passed through an AI model, constrained by physics knowledge, and transformed into validated decisions for scientific design.",
-    "visual_objects": [
-      "dataset",
-      "neural network",
-      "physics constraint",
-      "performance chart",
-      "application decision"
-    ],
-    "method_or_model": "Physics-guided neural operator / machine-learning surrogate model",
-    "mechanism": "Physics constraints calibrate model outputs and suppress unsupported predictions.",
-    "key_result": "Improved reliability and interpretability should be shown only as a schematic unless verified metrics are supplied.",
-    "application": "Scientific design, simulation acceleration, and decision support.",
-    "source_figures_to_redraw": [
-      "workflow figure",
-      "model architecture",
-      "verified result plot"
-    ],
-    "forbidden_content": [
-      "invented numerical gains",
-      "unprovided architecture layers",
-      "fake benchmark labels"
-    ]
+    "main_process": "Simulation fields and boundary conditions are encoded by a neural operator, constrained by physics residuals, and decoded into force-aware predictions for downstream engineering decision support.",
+    "visual_objects": ["field samples", "neural operator", "physics constraint", "prediction map", "metric tags", "decision node"],
+    "method_or_model": "physics-guided neural operator with residual closure",
+    "mechanism": "data representation and physical residual jointly regulate prediction consistency",
+    "key_result": "validated prediction and metric tags are shown as editable placeholders only",
+    "application": "fast simulation surrogate and decision support",
+    "source_figures_to_redraw": ["model schematic", "field output schematic"],
+    "forbidden_content": ["unverified performance numbers", "unverified physical mechanisms"]
   },
-  "central_claim": "Physics constraints convert AI predictions into traceable scientific decisions",
-  "prompt_confirmation": {
-    "decision": "accepted_all",
-    "accepted_items": [
-      "claim",
-      "layout",
-      "palette",
-      "vector_redraw",
-      "unsupported_content_exclusion"
-    ],
-    "user_confirmed": true
+  "composition": {
+    "frame_hierarchy": "small data frame -> large model frame -> small prediction/decision frame",
+    "core_frame_scale": 1.5,
+    "primary_module_count": 3,
+    "text_density_mode": "compact_labels",
+    "bottom_message_mode": "light_strip",
+    "avoid_visible_style_tags": true
+  },
+  "information_density": {
+    "profile": "standard",
+    "semantic_unit_target": "9-16",
+    "visible_text_budget": {"zh_chars": "0-80", "en_words": "35-95"},
+    "max_labels_per_module": 2,
+    "max_connectors": 6,
+    "min_visual_object_types": 4,
+    "evidence_cue_required": true,
+    "detail_destination": "notes_or_caption"
   },
   "blocks": [
-    {
-      "id": "data",
-      "type": "data",
-      "label": "Multimodal data",
-      "bullets": [
-        "Simulation",
-        "Experiment",
-        "Images/signals"
-      ],
-      "objects": [
-        {
-          "type": "dataset",
-          "x": 0.3,
-          "y": 0.2,
-          "w": 0.4,
-          "h": 0.35
-        }
-      ],
-      "claim_source": "user brief"
-    },
-    {
-      "id": "model",
-      "type": "model",
-      "label": "AI surrogate",
-      "bullets": [
-        "Learns field response",
-        "Editable network glyph"
-      ],
-      "objects": [
-        {
-          "type": "neural_network",
-          "x": 0.18,
-          "y": 0.16,
-          "w": 0.62,
-          "h": 0.45,
-          "layers": [
-            3,
-            5,
-            4
-          ]
-        }
-      ],
-      "claim_source": "user brief"
-    },
-    {
-      "id": "physics",
-      "type": "mechanism",
-      "label": "Physics closure",
-      "bullets": [
-        "Constraints",
-        "Residual checks"
-      ],
-      "objects": [
-        {
-          "type": "optimization_loop",
-          "x": 0.28,
-          "y": 0.16,
-          "w": 0.42,
-          "h": 0.42
-        }
-      ],
-      "claim_source": "schematic assumption"
-    },
-    {
-      "id": "result",
-      "type": "outcome",
-      "label": "Validated output",
-      "bullets": [
-        "Only verified metrics",
-        "No invented numbers"
-      ],
-      "objects": [
-        {
-          "type": "performance_chart",
-          "x": 0.24,
-          "y": 0.14,
-          "w": 0.52,
-          "h": 0.48
-        }
-      ],
-      "claim_source": "user brief"
-    },
-    {
-      "id": "decision",
-      "type": "application",
-      "label": "Design decision",
-      "bullets": [
-        "Screen candidates",
-        "Guide experiments"
-      ],
-      "objects": [
-        {
-          "type": "rare_earth_magnet",
-          "x": 0.2,
-          "y": 0.12,
-          "w": 0.58,
-          "h": 0.5
-        }
-      ],
-      "claim_source": "user brief"
-    }
+    {"id": "data", "title": "Simulation data", "role": "input", "labels": ["Fields", "Boundary conditions"], "objects": [{"type": "dataset"}, {"type": "fem_mesh"}], "claim_source": "user brief"},
+    {"id": "model", "title": "Neural operator", "role": "method", "labels": ["Physics residual", "Closure calibration"], "objects": [{"type": "neural_network"}, {"type": "mechanism_loop"}], "emphasis": "core", "claim_source": "user brief"},
+    {"id": "output", "title": "Prediction", "role": "result", "labels": ["F1 / error tags", "Decision support"], "objects": [{"type": "finite_element_result"}, {"type": "performance_chart"}], "claim_source": "user brief"}
   ],
   "connectors": [
-    {
-      "from": "data",
-      "to": "model",
-      "label": "train"
-    },
-    {
-      "from": "model",
-      "to": "physics",
-      "label": "calibrate"
-    },
-    {
-      "from": "physics",
-      "to": "result",
-      "label": "verify"
-    },
-    {
-      "from": "result",
-      "to": "decision",
-      "label": "deploy"
-    }
+    {"from": "data", "to": "model", "label": "encode", "style": "straight"},
+    {"from": "model", "to": "output", "label": "predict", "style": "straight"}
   ],
-  "output_options": {
-    "include_notes_slide": true,
-    "include_quality_slide": true,
-    "write_quality_report": true,
-    "include_palette_slide": true
-  },
-  "strict_mode": true,
-  "objects": [
-    {
-      "type": "multiscale_bridge",
-      "x": 0.39,
-      "y": 0.18,
-      "w": 0.22,
-      "h": 0.12,
-      "label": "scale bridge"
-    }
-  ]
+  "key_message": "Physics-guided neural operators convert simulation fields into traceable prediction, validation, and engineering decision summaries."
 }

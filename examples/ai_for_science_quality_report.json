@@ -1,0 +1,20 @@
+{
+  "score": 100,
+  "density": {
+    "profile": "standard",
+    "semantic_units": 11.8,
+    "visible_cjk_chars": 0,
+    "visible_english_words": 36,
+    "visual_object_types": [
+      "dataset",
+      "fem_mesh",
+      "finite_element_result",
+      "mechanism_loop",
+      "neural_network",
+      "performance_chart"
+    ],
+    "evidence_cues": 2
+  },
+  "issues": [],
+  "warnings": []
+}

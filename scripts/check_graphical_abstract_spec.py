@@ -1,201 +1,318 @@
 #!/usr/bin/env python3
-"""Check graphical abstract JSON specs before PPTX generation."""
-import argparse, json, re, sys
+import argparse
+import json
+import re
+import sys
 from pathlib import Path
 
-PALETTES = {
-    "nature_blue", "science_graphite", "advanced_materials_teal", "cell_biomedical",
-    "engineering_amber", "ai4science_indigo", "earth_environment", "minimal_mono",
-    "chinese_science_blue", "chinese_academy_red", "sci_cjk_bilingual"
+REQUIRED_CONTENT_KEYS = [
+    'main_process', 'visual_objects', 'method_or_model', 'mechanism',
+    'key_result', 'application', 'source_figures_to_redraw'
+]
+
+DENSITY_PROFILES = {
+    'compact': {
+        'min_units': 7, 'max_units': 12,
+        'min_cjk': 45, 'max_cjk': 110,
+        'min_en': 22, 'max_en': 60,
+        'max_blocks': 4, 'max_connectors': 4,
+        'max_labels': 2, 'min_visual_types': 3,
+    },
+    'standard': {
+        'min_units': 9, 'max_units': 16,
+        'min_cjk': 70, 'max_cjk': 170,
+        'min_en': 35, 'max_en': 95,
+        'max_blocks': 5, 'max_connectors': 6,
+        'max_labels': 2, 'min_visual_types': 4,
+    },
+    'rich': {
+        'min_units': 12, 'max_units': 20,
+        'min_cjk': 100, 'max_cjk': 230,
+        'min_en': 55, 'max_en': 130,
+        'max_blocks': 6, 'max_connectors': 8,
+        'max_labels': 3, 'min_visual_types': 6,
+    },
 }
-LAYOUTS = {
-    "left_to_right_pipeline", "problem_method_outcome", "center_core_radial",
-    "before_after_comparison", "multiscale_stack", "data_model_decision", "comparison"
-}
-LANGS = {"en", "zh-CN", "zh-TW", "bilingual"}
-PROFILES = {"international_top_journal", "chinese_top_journal", "bilingual_submission", "cover_like"}
-BLOCK_TYPES = {"data", "dataset", "sample", "instrument", "process", "model", "mechanism", "validation", "outcome", "application"}
-CONTENT_FIELDS = ["main_process", "visual_objects", "method_or_model", "mechanism", "key_result", "application", "source_figures_to_redraw", "forbidden_content"]
-STRICT_MIN_SCORE = 5
+
+EVIDENCE_TERMS = re.compile(r'(IoU|F1|AUC|RMSE|MAE|R2|R²|accuracy|precision|recall|dice|mIoU|%|提升|降低|验证|评价|精度|误差|指标|量化|对比|结果)', re.I)
+CJK_RE = re.compile(r'[\u4e00-\u9fff]')
+WORD_RE = re.compile(r"[A-Za-z0-9][A-Za-z0-9_+\-/.]*")
 
 
-def load(path):
-    with open(path, "r", encoding="utf-8") as f:
-        return json.load(f)
-
-
-def text_len(value):
-    if value is None:
+def text_len(x):
+    if isinstance(x, dict):
+        return sum(text_len(v) for v in x.values())
+    if isinstance(x, list):
+        return sum(text_len(v) for v in x)
+    if x is None:
         return 0
-    if isinstance(value, str):
-        return len(value.strip())
-    if isinstance(value, list):
-        return sum(text_len(x) for x in value)
-    if isinstance(value, dict):
-        return sum(text_len(v) for v in value.values())
-    return len(str(value))
+    return len(str(x).strip())
 
 
-def content_score(ac):
-    if not ac:
-        return 0, []
+def score_content(ac):
     if isinstance(ac, str):
-        score = 1 if len(ac.strip()) >= 20 else 0
-        if len(ac.strip()) >= 100:
-            score = 2
-        return score, ["string_brief"]
-    if not isinstance(ac, dict):
-        return 0, []
-    present = []
-    for field in CONTENT_FIELDS:
-        if text_len(ac.get(field)) > 0:
-            present.append(field)
-    score = 0
-    for field in ["main_process", "visual_objects", "method_or_model", "key_result", "application"]:
-        if field in present:
+        n = len(ac.strip())
+        score = 0
+        if n >= 60:
+            score += 2
+        if n >= 150:
+            score += 2
+        if n >= 300:
+            score += 2
+        return min(score, 6)
+    if isinstance(ac, dict):
+        score = 0
+        for k in REQUIRED_CONTENT_KEYS:
+            if text_len(ac.get(k, '')) >= 12:
+                score += 1
+        if text_len(ac) >= 280:
             score += 1
-    if "mechanism" in present:
-        score += 1
-    if "source_figures_to_redraw" in present:
-        score += 1
-    if "forbidden_content" in present:
-        score += 1
-    return min(score, 8), present
-
-
-def cjk_count(s):
-    return len(re.findall(r"[\u4e00-\u9fff]", s or ""))
-
-
-def is_strict(spec, cli_strict):
-    return bool(cli_strict or spec.get("strict_mode") or spec.get("journal_profile") in {"chinese_top_journal", "international_top_journal"})
-
-
-def main(argv=None):
-    parser = argparse.ArgumentParser(description="Check a graphical abstract JSON spec.")
-    parser.add_argument("spec_json")
-    parser.add_argument("--strict", action="store_true", help="Apply publication-grade blocking thresholds.")
-    args = parser.parse_args(argv)
-    path = Path(args.spec_json)
-    spec = load(path)
-    strict = is_strict(spec, args.strict)
-    issues, warnings = [], []
-
-    ac = spec.get("abstract_content")
-    score, present = content_score(ac)
-    if score == 0:
-        issues.append("Missing required abstract_content. Provide at least a brief description of what the graphical abstract should show.")
-    elif score < 3:
-        warnings.append(f"abstract_content is sparse (score={score}/8). Add process, objects, method/model, result, and application for better generation.")
-    elif score < STRICT_MIN_SCORE:
-        warnings.append(f"abstract_content is usable but not detailed (score={score}/8). Add mechanism, source figures, or forbidden content for strict generation.")
-    if strict and score < STRICT_MIN_SCORE:
-        issues.append(f"Strict mode requires abstract_content sufficiency >= {STRICT_MIN_SCORE}/8; current score={score}/8.")
-
-    for req in ["title", "language", "journal_profile", "palette_name", "layout_pattern", "blocks"]:
-        if req not in spec or spec.get(req) in (None, "", []):
-            issues.append(f"Missing required field: {req}")
-    if spec.get("language") not in LANGS:
-        issues.append(f"Unsupported language: {spec.get('language')}")
-    if spec.get("journal_profile") not in PROFILES:
-        issues.append(f"Unsupported journal_profile: {spec.get('journal_profile')}")
-    if spec.get("palette_name") not in PALETTES:
-        issues.append(f"Unsupported palette_name: {spec.get('palette_name')}")
-    if spec.get("layout_pattern") not in LAYOUTS:
-        issues.append(f"Unsupported layout_pattern: {spec.get('layout_pattern')}")
-
-    title = str(spec.get("title", ""))
-    if len(title) > 95:
-        warnings.append("Title is long for a graphical abstract. Prefer a compact claim-oriented title.")
-    if spec.get("language") in {"zh-CN", "zh-TW", "bilingual"} and cjk_count(title) > 32:
-        warnings.append("Chinese title exceeds 32 CJK characters. Prefer 18-28 characters for Chinese top-journal style.")
-
-    if not (spec.get("central_claim") or spec.get("visual_claim")):
-        warnings.append("central_claim/visual_claim is absent. The graphical abstract may lack a clear message.")
-
-    blocks = spec.get("blocks", []) or []
-    if not isinstance(blocks, list):
-        issues.append("blocks must be a list")
-        blocks = []
-    if len(blocks) < 3:
-        warnings.append("Fewer than 3 blocks may produce an under-developed graphical abstract.")
-    if len(blocks) > 7:
-        warnings.append("More than 7 blocks may be too dense for one graphical abstract.")
-    ids = []
-    for i, b in enumerate(blocks):
-        if not isinstance(b, dict):
-            issues.append(f"Block {i} is not an object")
-            continue
-        bid = b.get("id")
-        if not bid:
-            issues.append(f"Block {i} missing id")
-        elif bid in ids:
-            issues.append(f"Duplicate block id: {bid}")
-        else:
-            ids.append(bid)
-        btype = b.get("type", "process")
-        if btype not in BLOCK_TYPES:
-            warnings.append(f"Block {bid or i} has uncommon type '{btype}'; it will use generic styling.")
-        label = str(b.get("label", ""))
-        if not label:
-            warnings.append(f"Block {bid or i} missing label")
-        if len(label) > 46 and spec.get("language") == "en":
-            warnings.append(f"English block label is long in block {bid}: {label}")
-        if spec.get("language") in {"zh-CN", "zh-TW", "bilingual"} and cjk_count(label) > 14:
-            warnings.append(f"Chinese block label is long in block {bid}: {label}")
-        bullets = b.get("bullets", []) or []
-        if len(bullets) > 3:
-            warnings.append(f"Block {bid or i} has more than 3 bullets; excess bullets may be omitted or moved to notes.")
-        if text_len(bullets) > 140:
-            warnings.append(f"Block {bid or i} has dense bullet text.")
-        if not b.get("claim_source"):
-            warnings.append(f"Block {bid or i} has no claim_source; provenance audit will be weaker.")
-            if strict:
-                issues.append(f"Strict mode requires claim_source for block {bid or i}.")
-        for obj in b.get("objects", []) or []:
-            if not isinstance(obj, dict):
-                warnings.append(f"Block {bid or i} contains non-object DSL entry.")
-            elif not obj.get("type"):
-                warnings.append(f"Block {bid or i} object missing type.")
-
-    block_ids = set(ids)
-    for c in spec.get("connectors", []) or []:
-        if c.get("from") not in block_ids:
-            warnings.append(f"Connector source not found: {c.get('from')}")
-        if c.get("to") not in block_ids:
-            warnings.append(f"Connector target not found: {c.get('to')}")
-        if c.get("style") and c.get("style") not in {"straight", "elbow"}:
-            warnings.append(f"Unsupported connector style: {c.get('style')}")
-
-    pconf = spec.get("prompt_confirmation") or {}
-    if not pconf:
-        warnings.append("prompt_confirmation is absent. Strict top-journal generation should record whether prompt enhancements were accepted, edited, or skipped.")
-    if strict and pconf and not pconf.get("decision"):
-        issues.append("Strict mode requires prompt_confirmation.decision.")
-
-    opts = spec.get("output_options") or {}
-    if opts.get("include_palette_slide") and not spec.get("palette_name"):
-        issues.append("include_palette_slide requires a palette_name.")
-
-    quality = 100 - 12 * len(issues) - 4 * len(warnings)
-    quality = max(0, quality)
-    print(f"Spec: {path}")
-    print(f"Strict mode: {'on' if strict else 'off'}")
-    print(f"Content sufficiency score: {score}/8 ({', '.join(present) if present else 'none'})")
-    print(f"Estimated preflight quality: {quality}/100")
-    if issues:
-        print("\nBlocking issues:")
-        for item in issues:
-            print(f"- {item}")
-    if warnings:
-        print("\nWarnings:")
-        for item in warnings:
-            print(f"- {item}")
-    if issues:
-        print("\nFAIL")
-        return 1
-    print("\nPASS")
+        return score
     return 0
 
-if __name__ == "__main__":
-    raise SystemExit(main())
+
+def flatten_text(value):
+    out = []
+    if isinstance(value, dict):
+        for v in value.values():
+            out.extend(flatten_text(v))
+    elif isinstance(value, list):
+        for v in value:
+            out.extend(flatten_text(v))
+    elif value is not None:
+        s = str(value).strip()
+        if s:
+            out.append(s)
+    return out
+
+
+def visible_text_items(data):
+    items = []
+    for key in ('title', 'subtitle', 'key_message'):
+        if data.get(key):
+            items.append(str(data.get(key)))
+    for b in data.get('blocks', []) or []:
+        if not isinstance(b, dict):
+            continue
+        for key in ('title', 'label', 'label_secondary'):
+            if b.get(key):
+                items.append(str(b.get(key)))
+        for key in ('labels', 'bullets'):
+            vals = b.get(key, [])
+            if isinstance(vals, list):
+                items.extend(str(v) for v in vals if str(v).strip())
+        for obj in b.get('objects', []) or []:
+            if isinstance(obj, dict):
+                for key in ('label', 'title'):
+                    if obj.get(key):
+                        items.append(str(obj.get(key)))
+    for c in data.get('connectors', []) or []:
+        if isinstance(c, dict) and c.get('label'):
+            items.append(str(c.get('label')))
+    for obj in data.get('objects', []) or []:
+        if isinstance(obj, dict):
+            for key in ('label', 'title'):
+                if obj.get(key):
+                    items.append(str(obj.get(key)))
+    return items
+
+
+def count_text_budget(items):
+    text = ' '.join(items)
+    cjk = len(CJK_RE.findall(text))
+    words = len(WORD_RE.findall(text))
+    return cjk, words
+
+
+def object_types(data):
+    types = []
+    for obj in data.get('objects', []) or []:
+        if isinstance(obj, dict) and obj.get('type'):
+            types.append(str(obj.get('type')))
+    for b in data.get('blocks', []) or []:
+        if not isinstance(b, dict):
+            continue
+        for obj in b.get('objects', []) or []:
+            if isinstance(obj, dict) and obj.get('type'):
+                types.append(str(obj.get('type')))
+    return sorted(set(types))
+
+
+def estimate_information_units(data):
+    blocks = [b for b in data.get('blocks', []) or [] if isinstance(b, dict)]
+    connectors = [c for c in data.get('connectors', []) or [] if isinstance(c, dict)]
+    units = float(len(blocks))
+    label_count = 0
+    evidence_count = 0
+    for b in blocks:
+        labels = b.get('labels', []) or []
+        if isinstance(labels, list):
+            label_count += len(labels)
+            evidence_count += sum(1 for x in labels if EVIDENCE_TERMS.search(str(x)))
+        if b.get('emphasis') == 'core' or b.get('role') in ('method', 'mechanism'):
+            units += 1.0
+        for x in flatten_text(b.get('bullets', [])):
+            if EVIDENCE_TERMS.search(x):
+                evidence_count += 1
+    units += 0.4 * label_count
+    units += 0.6 * len(object_types(data))
+    units += 0.4 * sum(1 for c in connectors if c.get('label'))
+    if data.get('key_message'):
+        units += 1.0
+    if EVIDENCE_TERMS.search(' '.join(visible_text_items(data))):
+        evidence_count += 1
+    return round(units, 1), evidence_count
+
+
+def profile_name(data):
+    info = data.get('information_density', {}) or {}
+    profile = str(info.get('profile') or '').strip().lower()
+    if profile in DENSITY_PROFILES:
+        return profile
+    jp = str(data.get('journal_profile', '')).lower()
+    lang = str(data.get('language', '')).lower()
+    if 'chinese' in jp or lang.startswith('zh'):
+        return 'compact'
+    if data.get('layout_pattern') == 'multiscale_stack' or data.get('layout') == 'multiscale_stack':
+        return 'rich'
+    return 'standard'
+
+
+def validate_data(data, strict=False):
+    issues, warnings = [], []
+
+    ac = data.get('abstract_content')
+    if not ac:
+        issues.append('missing abstract_content: user must provide the approximate graphical abstract content')
+    else:
+        sc = score_content(ac)
+        min_score = 5 if strict else 3
+        if sc < min_score:
+            issues.append(f'abstract_content sufficiency score {sc}/8 is below required {min_score}/8')
+
+    title = str(data.get('title', '')).strip()
+    if not title:
+        warnings.append('title is empty')
+    if len(CJK_RE.findall(title)) > 28 or len(WORD_RE.findall(title)) > 14 or len(title) > 90:
+        warnings.append('title is long; shorten it for manuscript-scale viewing')
+
+    blocks = data.get('blocks', [])
+    if not isinstance(blocks, list) or not blocks:
+        issues.append('blocks must be a non-empty list')
+        blocks = []
+    else:
+        if len(blocks) > 5:
+            warnings.append('more than five primary blocks; consider merging support stages')
+        if len(blocks) >= 5 and all(not (isinstance(b, dict) and b.get('emphasis')) for b in blocks):
+            warnings.append('five or more blocks without a core emphasis may look like equal workflow cards')
+        for b in blocks:
+            if not isinstance(b, dict):
+                issues.append('each block must be an object')
+                continue
+            labels = b.get('labels', [])
+            if isinstance(labels, list) and len(labels) > 2 and b.get('emphasis') != 'core':
+                warnings.append(f"block '{b.get('id', b.get('title',''))}' has more than two labels")
+            if len(CJK_RE.findall(str(b.get('title','')))) > 12 or len(WORD_RE.findall(str(b.get('title','')))) > 6:
+                warnings.append(f"block title '{b.get('title','')}' may be too long")
+            bullets = b.get('bullets', [])
+            if isinstance(bullets, list) and bullets and strict:
+                warnings.append(f"block '{b.get('id', b.get('title',''))}' uses bullets; prefer compact labels")
+            if strict and not b.get('claim_source'):
+                warnings.append(f"block '{b.get('id', b.get('title',''))}' lacks claim_source")
+
+    comp = data.get('composition', {}) or {}
+    if comp:
+        pcs = comp.get('primary_module_count')
+        if isinstance(pcs, int) and pcs > 5:
+            warnings.append('composition.primary_module_count should normally be 3-5')
+        scale = comp.get('core_frame_scale')
+        if scale is not None:
+            try:
+                scale = float(scale)
+                if scale < 1.2 or scale > 2.0:
+                    warnings.append('core_frame_scale is outside the recommended publication range')
+            except Exception:
+                warnings.append('core_frame_scale should be numeric')
+        if comp.get('avoid_visible_style_tags') is False:
+            issues.append('final graphical abstract must avoid visible style tags')
+
+    profile = profile_name(data)
+    limits = DENSITY_PROFILES[profile]
+    blocks_count = len([b for b in blocks if isinstance(b, dict)])
+    connectors_count = len([c for c in data.get('connectors', []) or [] if isinstance(c, dict)])
+    units, evidence_count = estimate_information_units(data)
+    cjk, words = count_text_budget(visible_text_items(data))
+    visual_types = object_types(data)
+
+    if strict and not data.get('information_density'):
+        warnings.append(f'information_density not declared; inferred profile={profile}')
+    if blocks_count > limits['max_blocks']:
+        warnings.append(f'{profile} density expects at most {limits["max_blocks"]} primary blocks')
+    if connectors_count > limits['max_connectors']:
+        warnings.append(f'{profile} density expects at most {limits["max_connectors"]} connectors')
+    if units < limits['min_units']:
+        msg = f'information density too low for {profile}: {units} semantic units < {limits["min_units"]}'
+        (issues if strict else warnings).append(msg)
+    if units > limits['max_units']:
+        msg = f'information density too high for {profile}: {units} semantic units > {limits["max_units"]}'
+        (issues if strict else warnings).append(msg)
+
+    lang = str(data.get('language', '')).lower()
+    has_cjk = cjk > 0 or lang.startswith('zh')
+    if has_cjk:
+        if cjk > limits['max_cjk']:
+            (issues if strict else warnings).append(f'visible Chinese text exceeds {profile} budget: {cjk} chars > {limits["max_cjk"]}')
+        if cjk < limits['min_cjk'] and not words > limits['min_en']:
+            warnings.append(f'visible Chinese text may be too sparse for {profile}: {cjk} chars < {limits["min_cjk"]}')
+    if words > 0:
+        if words > limits['max_en']:
+            (issues if strict else warnings).append(f'visible English text exceeds {profile} budget: {words} words > {limits["max_en"]}')
+        if words < limits['min_en'] and cjk < limits['min_cjk']:
+            warnings.append(f'visible English text may be too sparse for {profile}: {words} words < {limits["min_en"]}')
+
+    info = data.get('information_density', {}) or {}
+    min_visual = int(info.get('min_visual_object_types', limits['min_visual_types'])) if str(info.get('min_visual_object_types', '')).isdigit() else limits['min_visual_types']
+    if strict and len(visual_types) < min_visual:
+        warnings.append(f'few declared visual object types: {len(visual_types)} < {min_visual}; add vector objects or confirm builder glyphs are sufficient')
+    evidence_required = info.get('evidence_cue_required', True)
+    if strict and evidence_required and evidence_count == 0:
+        issues.append('strict mode requires at least one verified result, validation, metric, mechanism, or application evidence cue')
+
+    return issues, warnings
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument('spec')
+    ap.add_argument('--strict', action='store_true')
+    ap.add_argument('--report')
+    args = ap.parse_args()
+    path = Path(args.spec)
+    data = json.loads(path.read_text(encoding='utf-8'))
+    issues, warnings = validate_data(data, args.strict)
+    profile = profile_name(data)
+    units, evidence_count = estimate_information_units(data)
+    cjk, words = count_text_budget(visible_text_items(data))
+    report = {
+        'status': 'FAIL' if issues else 'PASS',
+        'density_profile': profile,
+        'semantic_units': units,
+        'visible_cjk_chars': cjk,
+        'visible_english_words': words,
+        'evidence_cues': evidence_count,
+        'issues': issues,
+        'warnings': warnings,
+    }
+    if args.report:
+        Path(args.report).write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf-8')
+    print(report['status'])
+    print(f"DENSITY: profile={profile}, units={units}, cjk={cjk}, en_words={words}, evidence_cues={evidence_count}")
+    for x in issues:
+        print('ISSUE:', x)
+    for x in warnings:
+        print('WARNING:', x)
+    sys.exit(1 if issues else 0)
+
+
+if __name__ == '__main__':
+    main()

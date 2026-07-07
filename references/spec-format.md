@@ -23,7 +23,12 @@ This skill uses a JSON spec as the intermediate contract before generating a PPT
     "forbidden_content": ["..."]
   },
   "blocks": [],
-  "connectors": []
+  "connectors": [],
+  "information_density": {
+    "profile": "standard",
+    "semantic_unit_target": "9-16",
+    "evidence_cue_required": true
+  }
 }
 ```
 
@@ -100,6 +105,39 @@ Use connectors for logical flow only. Avoid decorative spaghetti lines.
 }
 ```
 
+
+## Information density fields
+
+Use the optional `information_density` object to make density constraints explicit:
+
+```json
+{
+  "information_density": {
+    "profile": "compact | standard | rich",
+    "semantic_unit_target": "9-16",
+    "visible_text_budget": {
+      "zh_chars": "70-170",
+      "en_words": "35-95"
+    },
+    "max_labels_per_module": 2,
+    "max_connectors": 6,
+    "min_visual_object_types": 4,
+    "evidence_cue_required": true,
+    "detail_destination": "notes_or_caption"
+  }
+}
+```
+
+Rules:
+
+- `compact` is recommended for Chinese top-journal and single-column-friendly figures.
+- `standard` is recommended for most manuscript graphical abstracts.
+- `rich` is reserved for multiscale, multiphysics, multimodal, or coupled model-experiment stories.
+- Visible text should stay within the selected profile budget.
+- Every non-core module should normally have no more than two visible labels.
+- Add verified visual objects or result cues when the figure is under-dense.
+- Move method detail, assumptions, and long explanations to notes or caption when the figure is over-dense.
+
 ## Output options
 
 ```json
@@ -116,3 +154,29 @@ Use connectors for logical flow only. Avoid decorative spaghetti lines.
 ## Palette preview
 
 Use `examples/palette_strips.pptx` or run `scripts/generate_palette_strips.py <out.pptx>` when the user wants to compare color combinations. The palette preview is an editable vector PowerPoint file.
+
+
+## Composition fields
+
+Use the optional `composition` object to make publication layout rules explicit:
+
+```json
+{
+  "composition": {
+    "frame_hierarchy": "small input frame -> large central core frame -> small output frame",
+    "core_frame_scale": 1.5,
+    "primary_module_count": 3,
+    "text_density_mode": "compact_labels",
+    "bottom_message_mode": "light_strip",
+    "avoid_visible_style_tags": true
+  }
+}
+```
+
+Rules:
+
+- `core_frame_scale` should normally be 1.3-1.8 when there is a central model, mechanism, or result.
+- `primary_module_count` should normally be 3-5.
+- `text_density_mode` should be `compact_labels` for publication figures.
+- `bottom_message_mode` should be `light_strip` or `caption`, not `large_box`, unless requested.
+- `avoid_visible_style_tags` must be true for final graphical abstracts.

@@ -26,3 +26,25 @@ Palette preview:
 ```bash
 python scripts/generate_palette_strips.py examples/palette_strips.pptx
 ```
+
+
+## Information density object
+
+Strict specs should include `information_density`:
+
+```json
+{
+  "information_density": {
+    "profile": "compact | standard | rich",
+    "semantic_unit_target": "9-16",
+    "visible_text_budget": {"zh_chars": "70-170", "en_words": "35-95"},
+    "max_labels_per_module": 2,
+    "max_connectors": 6,
+    "min_visual_object_types": 4,
+    "evidence_cue_required": true,
+    "detail_destination": "notes_or_caption"
+  }
+}
+```
+
+The checker and audit scripts use this object to control whether the figure is under-dense, over-dense, or balanced for manuscript-scale reading.

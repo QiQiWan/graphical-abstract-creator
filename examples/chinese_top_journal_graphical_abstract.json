@@ -1,188 +1,145 @@
 {
-  "title": "智能模型驱动材料性能预测与机制验证",
-  "subtitle": "中文顶级期刊风格：可编辑矢量图形摘要示例",
+  "title": "材料机制图形摘要",
   "language": "zh-CN",
   "journal_profile": "chinese_top_journal",
-  "palette_name": "chinese_science_blue",
   "layout_pattern": "multiscale_stack",
+  "strict_mode": true,
+  "palette_name": "chinese_science_blue",
   "abstract_content": {
-    "main_process": "围绕材料数据、智能模型、物理约束、性能验证和工程应用构建图形摘要，展示从数据输入到机制约束再到性能预测的完整路径。",
+    "main_process": "材料制备、微结构演化、磁畴调控和性能评价被组织为多尺度机制图，用于展示稀土永磁材料从工艺到性能的可编辑矢量摘要。",
     "visual_objects": [
-      "材料微结构",
-      "神经网络",
-      "机制约束",
-      "性能验证",
-      "应用场景"
+      "工艺堆栈",
+      "显微组织",
+      "磁畴箭头",
+      "性能指标",
+      "应用构件"
     ],
-    "method_or_model": "物理约束智能预测模型",
-    "mechanism": "利用物理约束提高预测结果的可解释性和稳定性。",
-    "key_result": "性能预测和机制验证仅以用户提供的验证结果为依据。",
-    "application": "材料筛选、工艺优化和性能评估。",
+    "method_or_model": "多尺度机制示意与性能评价摘要",
+    "mechanism": "工艺影响组织，组织调控磁畴，磁畴变化关联磁性能输出",
+    "key_result": "保留性能指标占位，不虚构具体数值",
+    "application": "稀土永磁材料智能制造与性能优化",
     "source_figures_to_redraw": [
-      "模型流程图",
-      "材料微结构示意图",
-      "性能对比图"
+      "工艺流程图",
+      "显微组织示意图",
+      "磁畴示意图"
     ],
     "forbidden_content": [
-      "未经验证的提升幅度",
-      "未提供的材料机制",
-      "夸张宣传性表述"
+      "未验证的矫顽力提升数值",
+      "未验证的相结构变化"
     ]
   },
-  "central_claim": "物理约束支撑智能预测结果的可解释验证",
-  "prompt_confirmation": {
-    "decision": "accepted_all",
-    "accepted_items": [
-      "中文顶刊表述",
-      "矢量重绘",
-      "质量门控"
-    ],
-    "user_confirmed": true
+  "composition": {
+    "frame_hierarchy": "process frame -> large multiscale mechanism frame -> performance/application frame",
+    "core_frame_scale": 1.45,
+    "primary_module_count": 4,
+    "text_density_mode": "compact_labels",
+    "bottom_message_mode": "light_strip",
+    "avoid_visible_style_tags": true
+  },
+  "information_density": {
+    "profile": "rich",
+    "semantic_unit_target": "12-20",
+    "visible_text_budget": {
+      "zh_chars": "100-230",
+      "en_words": "0-80"
+    },
+    "max_labels_per_module": 3,
+    "max_connectors": 8,
+    "min_visual_object_types": 6,
+    "evidence_cue_required": true,
+    "detail_destination": "notes_or_caption"
   },
   "blocks": [
     {
-      "id": "sample",
-      "type": "sample",
-      "label": "材料数据",
-      "label_secondary": "Material data",
-      "bullets": [
-        "结构特征",
-        "实验/仿真"
+      "id": "process",
+      "title": "工艺输入",
+      "role": "input",
+      "labels": [
+        "制备参数",
+        "质量控制"
       ],
       "objects": [
         {
-          "type": "material_microstructure",
-          "x": 0.3,
-          "y": 0.15,
-          "w": 0.4,
-          "h": 0.5
+          "type": "process_stack"
         }
       ],
-      "claim_source": "用户概要"
+      "claim_source": "user brief"
     },
     {
-      "id": "model",
-      "type": "model",
-      "label": "智能模型",
-      "label_secondary": "AI model",
-      "bullets": [
-        "特征学习",
-        "性能预测"
+      "id": "micro",
+      "title": "组织演化",
+      "role": "mechanism",
+      "labels": [
+        "晶粒尺度",
+        "相界面"
       ],
       "objects": [
         {
-          "type": "neural_network",
-          "x": 0.24,
-          "y": 0.13,
-          "w": 0.52,
-          "h": 0.5,
-          "layers": [
-            3,
-            4,
-            3
-          ]
+          "type": "material_microstructure"
+        },
+        {
+          "type": "multiscale_bridge"
         }
       ],
-      "claim_source": "用户概要"
+      "emphasis": "core",
+      "claim_source": "user brief"
     },
     {
-      "id": "mechanism",
-      "type": "mechanism",
-      "label": "物理约束",
-      "label_secondary": "Physics",
-      "bullets": [
-        "机制一致",
-        "结果可解释"
+      "id": "domain",
+      "title": "磁畴调控",
+      "role": "mechanism",
+      "labels": [
+        "取向",
+        "畴壁"
       ],
       "objects": [
         {
-          "type": "mechanism_loop",
-          "x": 0.34,
-          "y": 0.12,
-          "w": 0.32,
-          "h": 0.5
+          "type": "magnetic_domain"
+        },
+        {
+          "type": "rare_earth_magnet"
         }
       ],
-      "claim_source": "用户概要"
+      "claim_source": "user brief"
     },
     {
-      "id": "validation",
-      "type": "validation",
-      "label": "结果验证",
-      "label_secondary": "Validation",
-      "bullets": [
-        "对比分析",
-        "误差评估"
+      "id": "performance",
+      "title": "性能评价",
+      "role": "result",
+      "labels": [
+        "指标占位",
+        "应用优化"
       ],
       "objects": [
         {
-          "type": "performance_chart",
-          "x": 0.28,
-          "y": 0.12,
-          "w": 0.44,
-          "h": 0.52
-        }
-      ],
-      "claim_source": "用户概要"
-    },
-    {
-      "id": "application",
-      "type": "application",
-      "label": "工程应用",
-      "label_secondary": "Application",
-      "bullets": [
-        "材料筛选",
-        "工艺优化"
-      ],
-      "objects": [
+          "type": "performance_chart"
+        },
         {
-          "type": "rare_earth_magnet",
-          "x": 0.25,
-          "y": 0.12,
-          "w": 0.5,
-          "h": 0.5
+          "type": "optimization_loop"
         }
       ],
-      "claim_source": "用户概要"
+      "claim_source": "user brief"
     }
   ],
   "connectors": [
     {
-      "from": "sample",
-      "to": "model",
-      "label": "建模"
+      "from": "process",
+      "to": "micro",
+      "label": "调控",
+      "style": "straight"
     },
     {
-      "from": "model",
-      "to": "mechanism",
-      "label": "约束"
+      "from": "micro",
+      "to": "domain",
+      "label": "影响",
+      "style": "straight"
     },
     {
-      "from": "mechanism",
-      "to": "validation",
-      "label": "验证"
-    },
-    {
-      "from": "validation",
-      "to": "application",
-      "label": "应用"
+      "from": "domain",
+      "to": "performance",
+      "label": "评价",
+      "style": "straight"
     }
   ],
-  "output_options": {
-    "include_notes_slide": true,
-    "include_quality_slide": true,
-    "write_quality_report": true,
-    "include_palette_slide": true
-  },
-  "strict_mode": true,
-  "objects": [
-    {
-      "type": "multiscale_bridge",
-      "x": 0.72,
-      "y": 0.13,
-      "w": 0.18,
-      "h": 0.1,
-      "label": "多尺度"
-    }
-  ]
+  "key_message": "工艺、组织、磁畴与性能形成可追溯、可验证的多尺度机制链条，支撑材料设计与优化，并用于工艺参数反馈。"
 }

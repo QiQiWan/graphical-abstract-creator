@@ -26,3 +26,25 @@ python scripts/audit_graphical_abstract_quality.py examples/chinese_top_journal_
 ```bash
 python scripts/generate_palette_strips.py examples/palette_strips.pptx
 ```
+
+
+## 信息密度对象
+
+严格规范建议包含 `information_density`：
+
+```json
+{
+  "information_density": {
+    "profile": "compact | standard | rich",
+    "semantic_unit_target": "9-16",
+    "visible_text_budget": {"zh_chars": "70-170", "en_words": "35-95"},
+    "max_labels_per_module": 2,
+    "max_connectors": 6,
+    "min_visual_object_types": 4,
+    "evidence_cue_required": true,
+    "detail_destination": "notes_or_caption"
+  }
+}
+```
+
+检查脚本和质量审查脚本会根据该对象判断图形摘要是信息不足、信息过载，还是适合论文缩放阅读。

@@ -13,3 +13,7 @@ Graphical Abstract Creator is an EatRice Lab work.
 - `examples/`: English, Chinese top-journal, and palette-strip sample PPTX/spec files.
 - `docs/`: multilingual user documentation, installation/update docs, usage examples, API spec, palette strip docs, and quality gates.
 - `tests/`: smoke tests for examples and scripts.
+
+- `references/composition-and-compactness.md`: publication-level shape, frame hierarchy, compactness, and typography rules.
+
+- `references/information-density-standard.md`: semantic information density, visible text budget, evidence cue, and manuscript-scale readability rules.
