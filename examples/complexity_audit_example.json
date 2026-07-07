@@ -1,0 +1,25 @@
+{
+  "content_brief": "Example graphical abstract.",
+  "compact_style_card": {
+    "language_and_tone": "zh-CN, chinese top-journal",
+    "visual_structure_and_complexity": "center-core, max four modules",
+    "palette_and_density": "auto, standard",
+    "source_handling_and_output": "vector redraw, PPTX plus report"
+  },
+  "complexity_control": {
+    "max_main_modules": 4,
+    "main_modules": ["input/source", "method/model", "mechanism/result", "application"],
+    "min_visual_object_types": 3,
+    "max_primary_connectors": 6,
+    "max_visible_labels_per_module": 2
+  },
+  "preview_review": {
+    "visual_complexity_pass": true,
+    "mechanism_completeness_pass": true,
+    "frame_hierarchy_pass": true,
+    "information_density_floor_pass": true,
+    "academic_aesthetics_pass": true,
+    "module_cap_pass": true,
+    "accepted": true
+  }
+}

@@ -1,134 +1,115 @@
 ---
 name: graphical-abstract-creator
-description: create, revise, audit, and validate editable vector PowerPoint graphical abstracts for manuscript visual summaries. Use for graphical abstracts, visual abstracts, paper summary figures, editable scientific PPTX schematics, Chinese top-journal graphical abstracts, bilingual English-Chinese graphical abstracts, publication-grade style intake, prompt-confirmation planning, native PowerPoint vector icon construction, structured abstract-content intake, palette-strip preview, quality gates, and controlled information-density rules.
+description: "create publication-grade graphical abstracts through a preview-first workflow: read the content brief, use a compact style card, build a detailed generation prompt, create and audit a preview image, reconstruct a matching editable PowerPoint file, and enforce complexity, module-count, information-density, and preview-to-PPT consistency gates."
 ---
 
 # Graphical Abstract Creator
 
 ## Objective
 
-Produce one-slide or few-slide graphical abstracts in editable PowerPoint format for journal manuscripts and research outputs. Treat the output as a publication-grade scientific schematic, not as a decorative poster. Every text element must be editable PowerPoint text. Every visual element must be a native PowerPoint vector object whenever technically possible.
+Create manuscript graphical abstracts through a preview-first workflow. The skill reads the scientific content, uses a compact style-confirmation card, creates a detailed preview-generation prompt, generates a graphical-abstract preview image, audits the preview against publication-grade constraints, and then rebuilds the accepted preview as an editable PowerPoint file. The final `.pptx` must remain editable and must match the approved preview in composition, hierarchy, palette, labels, arrows, information density, and scientific meaning.
 
 ## Non-negotiable constraints
 
-- Output `.pptx` unless the user explicitly asks for planning text only.
-- Use native PowerPoint text boxes for all visible text.
-- Use native PowerPoint shapes, connectors, arrows, lines, tables, and editable charts for all visual elements.
-- Do not insert raster images, screenshots, embedded bitmaps, flattened SVG/PNG/PDF artwork, decorative stock icons, videos, audio, OLE objects, or external linked assets into the graphical abstract body.
-- Do not bundle or share font files. Use common editable fonts available in PowerPoint environments.
-- Support English, Simplified Chinese, Traditional Chinese, and bilingual English-Chinese graphical abstracts.
-- Support user-facing documentation in Arabic, English, Spanish, French, Japanese, Korean, Portuguese, Simplified Chinese, and Traditional Chinese.
-- Keep the design suitable for top-tier journals: evidence-driven, visually restrained, readable, aligned, semantically colored, and scientifically conservative.
-- Support Chinese top-journal graphical abstracts with concise Chinese labels, strict evidence wording, and restrained editorial style.
-- Prefer one coherent visual composition over dashboards, card grids, excessive badges, UI-like panels, or decorative icon collages.
-- Never invent quantitative results, mechanisms, molecular structures, device configurations, model architectures, equipment details, material processes, biological pathways, or clinical effects.
-- Report honestly when a requested element cannot be represented as a native PowerPoint vector object.
+- Require a content brief before starting generation.
+- Use the preview image to lock the visual solution before building the PPT.
+- Do not build the PPT until the preview passes the hard preview-review gates.
+- Keep the final graphical abstract to **no more than four main modules**. If the story has more than four modules, merge or nest them before preview generation.
+- Avoid overly simple outputs. A preview that is only a row of boxes, a plain flowchart, or a text-heavy poster fails review.
+- Preserve scientific accuracy. Do not invent unsupported claims, mechanisms, structures, devices, quantitative results, or causal links.
+- Deliver `.pptx` unless the user asks for planning output only.
+- Use editable PowerPoint text boxes for all final visible text.
+- Use native PowerPoint vector objects wherever technically possible.
+- Do not use screenshots or bitmap inserts as the final graphical-abstract body.
+- If a preview element cannot be faithfully rebuilt as editable PowerPoint vectors, state the limitation and simplify that element while preserving meaning.
 
-## Entry interaction protocol
+## Entry interaction
 
-At workflow entry, use `references/interaction-intake-protocol.md` and `references/intake-questionnaire.md`. Ask in one compact intake block; do not ask questions one by one.
+Use `references/interaction-intake-protocol.md` and `references/intake-questionnaire.md`.
 
-### Minimum required intake
+The interaction has two parts.
 
-Require only these minimum inputs before drafting or generating the PPTX:
+1. **Content brief.** Ask the user to describe what the graphical abstract should show. Request as much detail as possible: object of study, mechanism or workflow, method or model, key result, application endpoint, and reference figures or text.
+2. **Compact style card.** After reading the brief, ask the user to confirm only four grouped choices:
+   - **Language and academic tone:** English, Simplified Chinese, Traditional Chinese, or bilingual; international journal, Chinese top-journal, or cover-like.
+   - **Visual structure and complexity:** auto, left-to-right, center-core, before-after, multiscale, or comparison; always limited to at most four main modules.
+   - **Palette and density:** auto palette or a named palette; compact, standard, or rich density.
+   - **Source handling and output:** concept reference, vector redraw, or no source figure; PPTX only or PPTX plus prompt/spec/report.
 
-1. **Graphical abstract content brief**. The user must provide at least the approximate content to be shown. Request as much detail as possible: main process, visual objects, method/model, mechanism, key result, application scenario, and source figures to redraw. Do not generate the PPTX if this brief is absent.
-2. Output language: English, Simplified Chinese, Traditional Chinese, or bilingual English-Chinese.
-3. Journal profile: international top-journal, Chinese top-journal, bilingual submission, or journal-cover-like graphical abstract.
-4. Source-figure policy: conceptual reference only, redraw as editable vector elements, or no source figures.
-5. Output package: PPTX only, PPTX + JSON spec, PPTX + notes, PPTX + quality report, or PPTX + palette strip preview.
-
-Ask only the minimum intake fields listed above. Infer remaining domain context from the content brief and uploaded materials.
-
-### Layered intake and defaulting
-
-- Use minimum mode first. Do not overwhelm the user with a long questionnaire.
-- After the content brief exists, infer the central claim, layout pattern, vector object set, palette, unsupported-content exclusions, and prompt-confirmation plan.
-- Present a compact confirmation card only when the user requests strict quality, Chinese top-journal style, bilingual layout, top-journal finish, or editable vector-only generation.
-- When the user asks to choose colors, generate or show the palette-strip preview using `scripts/generate_palette_strips.py` and `docs/PALETTE_STRIPS.*.md`.
-- If the user gives no content brief, stop and ask for it. Do not generate placeholder science.
+Do not ask a long questionnaire. Use defaults when the user does not care: language inferred from the request, international journal tone unless Chinese output is requested, auto visual structure, auto palette, standard density, vector redraw when source figures exist, and PPTX plus prompt/spec/report for strict tasks.
 
 ## Default workflow
 
-Apply composition, compactness, and information-density rules from `references/composition-and-compactness.md` and `references/information-density-standard.md` throughout planning, generation, and audit. The default visual result should be a compact publication figure with one dominant core, not a row of equal workflow cards.
+1. **Read and normalize the content.**
+   - Read the user-provided text and uploaded materials.
+   - Convert the content into the structured format defined in `references/spec-format.md`.
+   - Preserve supported statements and mark unknown items as unspecified.
 
-1. **Normalize the content brief.**
-   - Convert user input into the structured `abstract_content` object in `references/spec-format.md`.
-   - Preserve user wording for verified claims.
-   - Mark missing details as `unspecified` instead of inventing them.
-   - Score content sufficiency using `scripts/check_graphical_abstract_spec.py`.
+2. **Compress the story to four modules or fewer.**
+   - Use `references/complexity-and-module-control.md`.
+   - Select no more than four main modules from: input/source, method/model, mechanism/process, validation/result, application/decision.
+   - Merge secondary details into callouts, labels, background layers, or speaker notes.
+   - Do not allow five or more main modules in the preview prompt or final PPT.
 
-2. **Select an information-density profile.**
-   - Use `references/information-density-standard.md`.
-   - Default to `compact` for Chinese top-journal and single-column-friendly outputs.
-   - Default to `standard` for general international graphical abstracts.
-   - Use `rich` only for multiscale, multiphysics, multimodal, or coupled model-experiment stories.
-   - Estimate semantic information units, visible text budget, connector count, and visual object count before layout.
-   - If the content is under-dense, add verified visual evidence or result cues; if it is over-dense, merge modules and move details to notes.
+3. **Prepare the visual story.**
+   - Identify the central claim, visual objects, result cues, and mechanism chain.
+   - Select information density using `references/information-density-standard.md`.
+   - Select a layout using `references/layout-patterns.md`.
+   - Enforce the large-frame/small-frame hierarchy from `references/composition-and-compactness.md`.
 
-3. **Extract one visual story.**
-   - Identify the problem, gap, method, mechanism, key result, and implication only when supported by the brief or uploaded material.
-   - Reduce the story to one central visual claim.
-   - Rank source reliability: manuscript figures and methods > abstract/results > user notes > clearly marked assumptions.
+4. **Confirm the compact style card.**
+   - Present the four grouped choices defined above.
+   - Allow the user to accept defaults or modify one grouped choice.
+   - Do not expand into many independent questions unless the user asks.
 
-4. **Run prompt confirmation when needed.**
-   - Use `references/prompt-confirmation-workflow.md`.
-   - Present a fixed confirmation card with claim sharpening, layout, vector redraw, result emphasis, palette, language tone, unsupported-content exclusion, and quality gates.
-   - Let the user choose: accept all, edit selected items, skip confirmation, or request JSON first.
+5. **Build the master preview prompt.**
+   - Use `references/prompt-construction-standard.md`.
+   - Include scientific content, visual complexity, mechanism completeness, four-module cap, large/small frame hierarchy, palette, typography, density, arrow logic, label style, and exclusions.
+   - The prompt must request a visually rich publication graphical abstract, not a simple block diagram.
 
-5. **Choose a structure.**
-   - Use `references/layout-patterns.md` and `references/composition-and-compactness.md`.
-   - Prefer left-to-right flow for method pipelines and causal mechanisms.
-   - Prefer center-core radial composition for one dominant innovation.
-   - Prefer before-after for performance improvement or intervention effects.
-   - Prefer multiscale stack for materials, mechanics, manufacturing, biology, geoscience, and AI-for-science topics.
-   - Use comparison layout for contrastive methods, ablation, or baseline-versus-proposed visual stories.
+6. **Generate the preview image.**
+   - Use image generation to create a graphical-abstract preview image.
+   - The preview must show a complete visual solution: dominant core, supporting modules, mechanism cues, labels, arrows, palette, hierarchy, and key message.
 
-6. **Select and preview a palette.**
-   - Use `references/palette-presets.md`.
-   - Default to `nature_blue` for international English output, `chinese_science_blue` for Chinese top-journal output, and `sci_cjk_bilingual` for bilingual output.
-   - Use one palette consistently; do not mix palettes casually.
-   - Use no more than four semantic colors on one slide.
-   - If color choice matters, provide a palette strip preview. The preview must be editable vector rectangles, not a screenshot.
+7. **Audit and refine the preview.**
+   - Use `references/preview-review-standard.md` and `references/review-checklist.md`.
+   - Reject previews that are too simple, too text-heavy, visually flat, mechanism-poor, academically decorative, or over the four-module limit.
+   - Regenerate or revise the prompt until the preview passes the hard gates.
 
-7. **Apply language-specific scientific style.**
-   - Use `references/chinese-top-journal-style.md` for Chinese or bilingual output.
-   - For Chinese top-journal outputs, use concise scientific Chinese, avoid marketing adjectives, and keep terms consistent with the manuscript.
-   - For bilingual outputs, use one primary language in major labels and the other as smaller secondary labels.
+8. **Create the PPT reconstruction blueprint.**
+   - Use `references/preview-to-ppt-consistency.md`.
+   - Record slide regions, object list, z-order, text hierarchy, connectors, colors, alignment, module grouping, and consistency locks.
 
-8. **Build editable vector objects.**
-   - Use `references/vector-icon-library.md` for the vector object DSL.
-   - Represent datasets, AI models, materials, samples, fields, magnetic domains, cracks, FEM meshes, molecules, sensors, civil structures, rare-earth magnets, multiscale mechanisms, optimization loops, and performance charts with native PowerPoint shapes.
-   - Redraw user-provided raster figures conceptually as editable vector shapes. Do not embed the source image.
+9. **Rebuild the editable PPT.**
+   - Reconstruct the accepted preview as an editable `.pptx` using native PowerPoint text boxes, shapes, connectors, tables, and editable charts.
+   - Preserve the approved preview's composition, module hierarchy, color logic, and key message.
 
-9. **Generate the PPTX.**
-   - Create a JSON spec following `references/spec-format.md`.
-   - Run `scripts/check_graphical_abstract_spec.py`; use `--strict` for publication-level outputs.
-   - Run `scripts/build_graphical_abstract_pptx.py` to create the editable vector PPTX.
-   - Use widescreen 16:9 unless the user explicitly requests another aspect ratio.
+10. **Validate preview-PPT consistency and complexity.**
+   - Use `scripts/audit_preview_ppt_consistency.py` and `scripts/audit_preview_complexity.py`.
+   - Verify that the PPT matches the preview and that both comply with the four-module cap, visual-complexity floor, mechanism-completeness gate, information-density floor, and academic-aesthetic gate.
+   - Correct failures before delivery.
 
-10. **Audit quality and editability.**
-   - Run `scripts/validate_pptx_editability.py`.
-   - Run `scripts/audit_graphical_abstract_quality.py` for layout, language, palette, text density, claim provenance, contrast, and vector purity checks.
-   - Fix every detected raster image, picture object, embedded media file, external relationship, OLE object, out-of-bounds element, unsupported claim, or density violation before delivery.
+## Preview hard gates
 
-11. **Deliver with traceable assumptions.**
-   - Provide the PPTX and any requested JSON spec/report.
-   - State which inputs were used, which assumptions were applied, and which elements are editable vector PowerPoint objects.
-   - If any request could not be fulfilled as editable vectors, identify the limitation explicitly.
+A preview passes only when all of the following are true:
+
+- **Module cap:** no more than four main modules.
+- **Visual-complexity floor:** at least one dominant core object, at least three distinct scientific visual object types, visible supporting context, and more than plain rectangles with text.
+- **Mechanism completeness:** the image shows a clear relationship among source/input, method or mechanism, output/result, and implication/application when those elements are provided.
+- **Large/small frame hierarchy:** one primary region is visually dominant; supporting modules are smaller and secondary.
+- **Information-density floor:** the preview contains enough scientific content to be meaningful after journal-size scaling; empty decorative space or generic icon-only compositions fail.
+- **Academic aesthetics:** the layout is restrained, aligned, balanced, non-cartoonish, non-poster-like, and free of decorative clutter.
 
 ## Quality gates
 
-Use `docs/QUALITY_GATES.en.md` or `docs/QUALITY_GATES.zh-CN.md` as the publication-level gate sequence:
-
-- Q0: content brief sufficiency;
-- Q1: claim provenance;
-- Q2: visual story coherence;
-- Q3: editable-vector construction;
-- Q4: typographic and language discipline;
-- Q5: palette and contrast consistency;
-- Q6: PowerPoint technical purity;
-- Q7: final package completeness;
-- Q8: palette-strip preview available when color style is being chosen;
-- Q9: composition and compactness meet publication-level frame hierarchy, text density, and title/key-message rules;
-- Q10: information density remains within the selected compact, standard, or rich publication profile.
+- Q0: content brief sufficiency.
+- Q1: compact style card completed.
+- Q2: story compressed to four modules or fewer.
+- Q3: master preview prompt generated.
+- Q4: preview image passes hard gates.
+- Q5: preview image accepted.
+- Q6: editable PPT reconstruction completed.
+- Q7: PowerPoint editability and vector purity verified.
+- Q8: preview-PPT consistency verified.
+- Q9: typography, palette, composition, and academic aesthetics verified.
+- Q10: information density and module complexity verified.
